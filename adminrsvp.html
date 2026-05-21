@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin RSVP — Luana & Theo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --verde: #3A3D2C;
+  --verde-lt: #4A6741;
+  --cream: #F3EFE7;
+  --bege: #EAE6DC;
+  --sand: #D4CFC5;
+  --cg: 'Cormorant Garamond', Georgia, serif;
+  --alice: 'Cormorant Garamond', Georgia, serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--cg);
+  background: var(--bege);
+  color: var(--verde);
+  min-height: 100vh;
+}
+
+/* LOGIN */
+#login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cream);
+}
+.login-box {
+  text-align: center;
+  padding: 56px 48px;
+  background: white;
+  border: 1px solid rgba(58,61,44,0.1);
+  box-shadow: 0 4px 40px rgba(58,61,44,0.08);
+  max-width: 380px;
+  width: 100%;
+}
+.login-title {
+  font-family: var(--cg);
+  font-style: italic;
+  font-size: 2rem;
+  color: var(--verde);
+  margin-bottom: 8px;
+}
+.login-sub {
+  font-family: var(--alice);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--verde);
+  opacity: 0.5;
+  margin-bottom: 36px;
+}
+.login-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(58,61,44,0.25);
+  background: transparent;
+  padding: 10px 0;
+  font-family: var(--cg);
+  font-size: 1rem;
+  color: var(--verde);
+  outline: none;
+  margin-bottom: 28px;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+.login-btn {
+  width: 100%;
+  background: var(--verde);
+  color: var(--cream);
+  border: none;
+  padding: 14px;
+  font-family: var(--alice);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.login-btn:hover { background: var(--verde-lt); }
+.login-error {
+  font-family: var(--alice);
+  font-size: 0.75rem;
+  color: #8B3A3A;
+  margin-top: 12px;
+  display: none;
+}
+
+/* MAIN */
+#main { display: none; }
+
+header {
+  background: var(--verde);
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-title {
+  font-family: var(--cg);
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--cream);
+}
+.header-sub {
+  font-family: var(--alice);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(243,239,231,0.45);
+  margin-top: 2px;
+}
+.logout-btn {
+  font-family: var(--alice);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(243,239,231,0.5);
+  background: none;
+  border: 1px solid rgba(243,239,231,0.2);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.logout-btn:hover { color: var(--cream); border-color: rgba(243,239,231,0.5); }
+
+.content { padding: 40px; max-width: 1200px; margin: 0 auto; }
+
+/* STATS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.stat-card {
+  background: white;
+  border: 1px solid rgba(58,61,44,0.08);
+  padding: 24px 20px;
+  text-align: center;
+}
+.stat-number {
+  font-family: var(--cg);
+  font-size: 2.8rem;
+  color: var(--verde);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-family: var(--alice);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--verde);
+  opacity: 0.55;
+}
+
+/* FILTERS */
+.filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.filter-input {
+  flex: 1;
+  min-width: 200px;
+  border: 1px solid rgba(58,61,44,0.15);
+  background: white;
+  padding: 10px 16px;
+  font-family: var(--cg);
+  font-size: 0.95rem;
+  color: var(--verde);
+  outline: none;
+}
+.filter-select {
+  border: 1px solid rgba(58,61,44,0.15);
+  background: white;
+  padding: 10px 16px;
+  font-family: var(--cg);
+  font-size: 0.95rem;
+  color: var(--verde);
+  outline: none;
+  cursor: pointer;
+}
+.action-btn {
+  font-family: var(--alice);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-export {
+  background: var(--verde-lt);
+  color: white;
+}
+.btn-export:hover { background: var(--verde); }
+.btn-refresh {
+  background: var(--sand);
+  color: var(--verde);
+  border: 1px solid rgba(58,61,44,0.2);
+}
+.btn-refresh:hover { background: var(--bege); }
+.btn-clear {
+  background: transparent;
+  color: #8B3A3A;
+  border: 1px solid rgba(139,58,58,0.3);
+}
+.btn-clear:hover { background: rgba(139,58,58,0.06); }
+
+/* TABLE */
+.table-wrap {
+  background: white;
+  border: 1px solid rgba(58,61,44,0.08);
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+thead {
+  background: var(--verde);
+}
+thead th {
+  font-family: var(--alice);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(243,239,231,0.7);
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: normal;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+thead th:hover { color: var(--cream); }
+thead th .sort-arrow { opacity: 0.4; margin-left: 4px; }
+thead th.sorted .sort-arrow { opacity: 1; }
+
+tbody tr {
+  border-bottom: 1px solid rgba(58,61,44,0.06);
+  transition: background 0.15s;
+}
+tbody tr:hover { background: rgba(58,61,44,0.02); }
+tbody td {
+  font-family: var(--cg);
+  font-size: 0.95rem;
+  color: var(--verde);
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+.td-name { font-weight: 500; }
+.td-comp { opacity: 0.65; font-style: italic; }
+.badge {
+  display: inline-block;
+  font-family: var(--alice);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin: 2px 2px 2px 0;
+}
+.badge-quinta { background: rgba(90,122,74,0.12); color: var(--verde-lt); }
+.badge-sabado { background: rgba(58,61,44,0.1); color: var(--verde); }
+.td-date {
+  font-family: var(--alice);
+  font-size: 0.68rem;
+  opacity: 0.45;
+  white-space: nowrap;
+}
+.btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(139,58,58,0.4);
+  font-size: 1rem;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+.btn-delete:hover { color: #8B3A3A; }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  font-family: var(--cg);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--verde);
+  opacity: 0.4;
+}
+
+/* FORMSPREE PANEL */
+.panel {
+  background: white;
+  border: 1px solid rgba(58,61,44,0.08);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.panel-title {
+  font-family: var(--alice);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--verde);
+  opacity: 0.6;
+  margin-bottom: 16px;
+}
+.formspree-note {
+  font-family: var(--cg);
+  font-size: 0.95rem;
+  color: var(--verde);
+  opacity: 0.75;
+  line-height: 1.7;
+}
+.formspree-note a {
+  color: var(--verde-lt);
+}
+
+@media(max-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .content { padding: 20px; }
+  header { padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-title">Luana & Theo</div>
+    <div class="login-sub">Painel RSVP — Acesso restrito</div>
+    <input class="login-input" id="pwd" type="password" placeholder="senha" onkeydown="if(event.key==='Enter')login()"/>
+    <button class="login-btn" onclick="login()">Entrar</button>
+    <div class="login-error" id="login-err">Senha incorreta.</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <header>
+    <div>
+      <div class="header-title">Painel RSVP</div>
+      <div class="header-sub">Luana & Theo · 17.04.2027 · Paraty</div>
+    </div>
+    <button class="logout-btn" onclick="logout()">Sair</button>
+  </header>
+
+  <div class="content">
+
+    <!-- FORMSPREE NOTE -->
+    <div class="panel">
+      <div class="panel-title">📧 Notificações por e-mail</div>
+      <p class="formspree-note">
+        Cada confirmação de RSVP é enviada automaticamente para <strong>lmagalhaesmoura@gmail.com</strong> via Formspree.
+        As confirmações também ficam salvas aqui neste painel (localStorage do navegador dos convidados é consolidado via Formspree).
+        <br/><br/>
+        Para ver todas as submissões Formspree: <a href="https://formspree.io/forms/xlgakjrg/submissions" target="_blank">formspree.io → submissions</a>
+      </p>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number" id="stat-total">0</div>
+        <div class="stat-label">Confirmados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-quinta">0</div>
+        <div class="stat-label">Quinta · Escuna</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-sabado">0</div>
+        <div class="stat-label">Sábado · Casamento</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-comp">0</div>
+        <div class="stat-label">Com Acompanhante</div>
+      </div>
+    </div>
+
+    <!-- FILTERS + ACTIONS -->
+    <div class="filters">
+      <input class="filter-input" id="search" type="text" placeholder="Buscar por nome ou acompanhante..." oninput="render()"/>
+      <select class="filter-select" id="filter-ev" onchange="render()">
+        <option value="">Todos os eventos</option>
+        <option value="Quinta">Quinta — Escuna</option>
+        <option value="Sábado">Sábado — Casamento</option>
+      </select>
+      <select class="filter-select" id="filter-comp" onchange="render()">
+        <option value="">Todos</option>
+        <option value="sim">Com acompanhante</option>
+        <option value="nao">Sem acompanhante</option>
+      </select>
+      <button class="action-btn btn-refresh" onclick="loadFromFormspree()">↻ Atualizar</button>
+      <button class="action-btn btn-export" onclick="exportCSV()">⬇ Exportar CSV</button>
+      <button class="action-btn btn-clear" onclick="clearAll()">Limpar dados</button>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th onclick="sortBy('name')">Nome <span class="sort-arrow" id="arr-name">↕</span></th>
+            <th onclick="sortBy('telefone')">WhatsApp <span class="sort-arrow" id="arr-telefone">↕</span></th>
+            <th onclick="sortBy('companion')">Acompanhante <span class="sort-arrow" id="arr-companion">↕</span></th>
+            <th>Eventos</th>
+            <th>Eventos Acompanhante</th>
+            <th onclick="sortBy('ts')">Confirmado em <span class="sort-arrow" id="arr-ts">↕</span></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="empty-state" id="empty" style="display:none;">Nenhuma confirmação encontrada.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const PWD = 'casamento2026';
+let rsvps = [];
+let sortCol = 'ts';
+let sortDir = -1;
+
+function login() {
+  const val = document.getElementById('pwd').value;
+  if (val === PWD) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+    loadData();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+  }
+}
+
+function logout() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('main').style.display = 'none';
+  document.getElementById('pwd').value = '';
+}
+
+function loadData() {
+  // Load from localStorage (submitted from same domain)
+  const local = JSON.parse(localStorage.getItem('rsvps_lt') || '[]');
+  rsvps = local;
+  updateStats();
+  render();
+}
+
+async function loadFromFormspree() {
+  // Note: Formspree submissions API requires paid plan for direct API access
+  // Users should check formspree.io/forms/xlgakjrg/submissions directly
+  // But we reload local data
+  loadData();
+  alert('Dados locais atualizados!\n\nPara ver TODAS as confirmações (de outros dispositivos), acesse:\nhttps://formspree.io/forms/xlgakjrg/submissions');
+}
+
+function updateStats() {
+  const total = rsvps.length;
+  const quinta = rsvps.filter(r => r.events && r.events.includes('Quinta')).length;
+  const sabado = rsvps.filter(r => r.events && r.events.includes('Sábado')).length;
+  const comp = rsvps.filter(r => r.companion && r.companion !== '—').length;
+
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-quinta').textContent = quinta;
+  document.getElementById('stat-sabado').textContent = sabado;
+  document.getElementById('stat-comp').textContent = comp;
+}
+
+function norm(s) {
+  return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function buildWaBtn(r) {
+  if (!r.telefone) return '<span style="opacity:.3;font-size:.8rem;font-family:var(--cg);">sem tel.</span>';
+  // Clean phone number — keep only digits
+  const digits = r.telefone.replace(/\D/g, '');
+  // Add Brazil country code if not present
+  const intl = digits.startsWith('55') ? digits : '55' + digits;
+  const name = encodeURIComponent(r.name);
+  const events = encodeURIComponent(r.events || '');
+  const msg = encodeURIComponent(
+    `Olá, ${r.name}! Recebemos sua confirmação de presença para o casamento de Luana & Theo em 17/04/2027 em Paraty. Obrigada! 💚`
+  );
+  return `<a 
+    href="https://wa.me/${intl}?text=${msg}" 
+    target="_blank"
+    style="
+      display:inline-flex;align-items:center;gap:6px;
+      background:#25D366;color:white;
+      font-family:var(--cg);font-size:.8rem;letter-spacing:.04em;
+      padding:6px 12px;text-decoration:none;
+      border-radius:2px;white-space:nowrap;
+      transition:background .2s;
+    "
+    onmouseover="this.style.background='#1da851'"
+    onmouseout="this.style.background='#25D366'"
+  >
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    WhatsApp
+  </a>`;
+}
+
+function render() {
+  const search = norm(document.getElementById('search').value);
+  const evFilter = document.getElementById('filter-ev').value;
+  const compFilter = document.getElementById('filter-comp').value;
+
+  let data = [...rsvps];
+
+  if (search) {
+    data = data.filter(r =>
+      norm(r.name).includes(search) ||
+      norm(r.companion || '').includes(search)
+    );
+  }
+  if (evFilter) {
+    data = data.filter(r => r.events && r.events.includes(evFilter));
+  }
+  if (compFilter === 'sim') {
+    data = data.filter(r => r.companion && r.companion !== '—');
+  } else if (compFilter === 'nao') {
+    data = data.filter(r => !r.companion || r.companion === '—');
+  }
+
+  // Sort
+  data.sort((a, b) => {
+    const va = (a[sortCol] || '').toString();
+    const vb = (b[sortCol] || '').toString();
+    return va.localeCompare(vb) * sortDir;
+  });
+
+  const tbody = document.getElementById('tbody');
+  const empty = document.getElementById('empty');
+
+  if (!data.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = data.map((r, i) => {
+    const evs = (r.events || '').split(', ').filter(Boolean).map(e => {
+      const isQ = e.includes('Quinta');
+      return `<span class="badge ${isQ ? 'badge-quinta' : 'badge-sabado'}">${isQ ? 'Quinta' : 'Sábado'}</span>`;
+    }).join('');
+
+    const cev = (r.compEvents || '').split(', ').filter(Boolean).map(e => {
+      const isQ = e.includes('Quinta');
+      return `<span class="badge ${isQ ? 'badge-quinta' : 'badge-sabado'}">${isQ ? 'Quinta' : 'Sábado'}</span>`;
+    }).join('') || '<span style="opacity:.35;font-style:italic;">—</span>';
+
+    const date = r.ts ? new Date(r.ts).toLocaleString('pt-BR', {
+      day: '2-digit', month: '2-digit', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    }) : '—';
+
+    const realIdx = rsvps.indexOf(r);
+
+    return `<tr>
+      <td class="td-name">${r.name || '—'}</td>
+      <td class="td-comp">${r.telefone || '—'}</td>
+      <td class="td-comp">${r.companion && r.companion !== '—' ? r.companion : '<span style="opacity:.35;">—</span>'}</td>
+      <td>${evs || '<span style="opacity:.35;font-style:italic;">—</span>'}</td>
+      <td>${cev}</td>
+      <td class="td-date">${date}</td>
+      <td>${buildWaBtn(r)}</td>
+      <td><button class="btn-delete" onclick="deleteEntry(${realIdx})" title="Remover">✕</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function sortBy(col) {
+  if (sortCol === col) { sortDir *= -1; }
+  else { sortCol = col; sortDir = 1; }
+  document.querySelectorAll('.sort-arrow').forEach(el => el.textContent = '↕');
+  document.getElementById('arr-' + col).textContent = sortDir === 1 ? '↑' : '↓';
+  render();
+}
+
+function deleteEntry(idx) {
+  if (!confirm('Remover esta confirmação?')) return;
+  rsvps.splice(idx, 1);
+  localStorage.setItem('rsvps_lt', JSON.stringify(rsvps));
+  updateStats();
+  render();
+}
+
+function clearAll() {
+  if (!confirm('Limpar TODAS as confirmações? Esta ação não pode ser desfeita.')) return;
+  rsvps = [];
+  localStorage.setItem('rsvps_lt', JSON.stringify(rsvps));
+  updateStats();
+  render();
+}
+
+function exportCSV() {
+  const headers = ['Nome', 'WhatsApp', 'Acompanhante', 'Eventos', 'Eventos Acompanhante', 'Confirmado em'];
+  const rows = rsvps.map(r => [
+    r.name || '',
+    r.telefone || '',
+    r.companion || '',
+    r.events || '',
+    r.compEvents || '',
+    r.ts ? new Date(r.ts).toLocaleString('pt-BR') : ''
+  ]);
+
+  const csv = [headers, ...rows]
+    .map(row => row.map(v => `"${String(v).replace(/"/g, '""')}"`).join(','))
+    .join('\n');
+
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `rsvp-luana-theo-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById('pwd').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+</script>
+</body>
+</html>

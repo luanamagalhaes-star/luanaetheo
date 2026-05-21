@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Luana & Theo — 17.04.2027 — Paraty</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://db.onlinewebfonts.com/c/cb7d4d489b19d14ef4a2a00c676633e7?family=Pushkin+W10+Script+High"/>
+<style>
+:root{
+  --verde:#3A3D2C;
+  --verde-lt:#5a7a4a;
+  --cream:#F3EFE7;
+  --push:'Pushkin W10 Script High','Great Vibes','Dancing Script',cursive;
+  --cg:'Cormorant Garamond',Georgia,serif;
+  --stripe-w:108px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+/* PAPER TEXTURE — used everywhere as body bg */
+body{
+  font-family:var(--cg);
+  color:var(--verde);
+  overflow-x:hidden;
+  background-color:#F3F0E8;
+  background-image:url('https://luanaetheo.vercel.app/papel.jpg');
+  background-size:600px auto;
+  background-repeat:repeat;
+  background-attachment:fixed;
+}
+
+/* STRIPE — inline within sections, NOT fixed */
+.stripe-section{
+  position:relative;
+  overflow:hidden;
+}
+.stripe-section::before,
+.stripe-section::after{
+  content:'';
+  position:absolute;
+  top:0;bottom:0;
+  width:var(--stripe-w);
+  background-image:url('https://luanaetheo.vercel.app/estampa02.png');
+  background-size:216px auto;
+  background-repeat:repeat-y;
+  pointer-events:none;
+  z-index:2;
+}
+.stripe-section::before{left:0;}
+.stripe-section::after{right:0;}
+
+/* HERO */
+#hero{
+  height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;
+  background:transparent;
+  position:relative;overflow:hidden;
+}
+.hero-top{
+  flex:0 0 50vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:40px 40px 32px;
+  position:relative;z-index:2;
+  width:100%;
+}
+.hero-mono{width:140px;height:auto;margin-bottom:32px;display:block;}
+.hero-names{
+  font-family:var(--push);
+  font-size:clamp(3rem,6vw,5.5rem);
+  color:var(--verde);
+  letter-spacing:0.06em;
+  margin-bottom:40px;line-height:1;
+}
+.hero-nav{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;}
+.hero-nav a{
+  font-family:'Cormorant Garamond',Georgia,serif !important;
+  font-style:italic;
+  font-size:1.55rem;
+  color:var(--verde);text-decoration:none;
+  transition:opacity .2s;
+}
+.hero-nav a:hover{opacity:.5;}
+.hero-pattern{
+  width:100%;
+  flex:1;
+  min-height:0;
+  background-image:url('https://luanaetheo.vercel.app/estampa01.png');
+  background-size:480px auto;
+  background-repeat:repeat;
+  background-position:top center;
+  flex-shrink:0;
+}
+
+
+
+/* SECTION */
+.sec{
+  padding:80px 120px;
+  text-align:center;
+  max-width:1000px;
+  margin:0 auto;
+}
+.sec-title{
+  font-family:var(--push);
+  font-size:3.8rem;
+  color:var(--verde);
+  margin-bottom:48px;line-height:1;
+}
+.sub-title{
+  font-family:var(--push);
+  font-size:2.8rem;
+  color:var(--verde-lt);
+  margin-bottom:12px;line-height:1;
+}
+.mono-div{
+  width:88px;height:auto;
+  margin:0 auto 24px;display:block;opacity:.6;
+}
+.div-line{
+  height:1px;
+  background:linear-gradient(to right,transparent,rgba(58,61,44,.15),transparent);
+}
+
+/* WELCOME (stripe section) */
+.welcome{
+  padding:80px 140px;
+  text-align:center;
+  background:transparent;
+  position:relative;
+}
+.welcome-greeting{
+  font-family:var(--cg);font-style:italic;
+  font-size:1.2rem;letter-spacing:.06em;
+  color:var(--verde);opacity:.65;margin-bottom:20px;
+}
+.welcome-title{
+  font-family:var(--push);
+  font-size:3.2rem;
+  color:var(--verde);
+  margin-bottom:28px;
+  line-height:1.2;
+}
+.welcome-text{
+  font-family:var(--cg);
+  font-size:1.2rem;line-height:2;
+  color:var(--verde);opacity:.82;
+  max-width:620px;margin:0 auto 16px;
+}
+.welcome-sign{
+  font-family:var(--push);
+  font-size:2.4rem;color:var(--verde);margin-top:32px;margin-bottom:6px;
+}
+.welcome-names{
+  font-family:var(--push);
+  font-size:3.2rem;color:var(--verde);
+}
+
+/* PROG */
+.prog-outer{max-width:860px;margin:0 auto;}
+.prog-single{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;margin-bottom:64px;}
+.prog-icon{height:120px;width:auto;object-fit:contain;margin-bottom:8px;}
+.prog-day{font-family:var(--push);font-size:2.6rem;color:var(--verde-lt);line-height:1;}
+.prog-dt{font-family:var(--cg);font-size:1.1rem;letter-spacing:.12em;color:var(--verde);opacity:.8;}
+.prog-ev{font-family:var(--cg);font-weight:500;font-size:1.2rem;letter-spacing:.18em;text-transform:uppercase;color:var(--verde);margin-top:4px;}
+.prog-det{font-family:var(--cg);font-size:1.08rem;color:var(--verde);opacity:.65;line-height:1.8;}
+.prog-row{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-bottom:32px;}
+.prog-sab-header{font-family:var(--push);font-size:2.2rem;color:var(--verde-lt);margin-bottom:8px;}
+.prog-sab-date{font-family:var(--cg);font-size:1.1rem;letter-spacing:.12em;color:var(--verde);opacity:.8;margin-bottom:40px;}
+.prog-traje-center{font-family:var(--cg);font-style:italic;font-size:1.2rem;color:var(--verde);opacity:.75;margin-bottom:6px;}
+.prog-traje-sug{font-family:var(--cg);font-size:1rem;color:var(--verde);opacity:.5;line-height:1.7;}
+
+/* ITEMS */
+.g-flex{
+  display:flex;flex-wrap:wrap;
+  justify-content:center;
+  gap:40px 48px;
+  margin-bottom:48px;
+}
+.g-flex .item{
+  flex:0 0 200px;text-align:center;
+}
+.iname{
+  font-family:var(--cg);font-weight:500;
+  font-size:1.1rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--verde);margin-bottom:10px;
+}
+.isub{
+  font-family:var(--cg);font-size:1rem;font-style:italic;
+  color:var(--verde);opacity:.65;margin-bottom:8px;line-height:1.6;
+}
+.ilink{
+  display:block;font-family:var(--cg);
+  font-size:1rem;letter-spacing:.04em;
+  color:var(--verde);text-decoration:underline;
+  text-underline-offset:3px;opacity:.5;
+  margin-bottom:4px;transition:opacity .2s;
+}
+.ilink:hover{opacity:1;}
+
+/* DICAS vertical list */
+.g1{display:flex;flex-direction:column;gap:32px;margin-bottom:48px;max-width:380px;margin-left:auto;margin-right:auto;}
+
+/* PRESENTES */
+.gift-btn{
+  display:inline-block;
+  font-family:var(--cg);font-size:1rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:#fff;background:#7a6040;
+  text-decoration:none;padding:18px 48px;margin:8px;
+  transition:background .2s;
+}
+.gift-btn:hover{background:#695030;}
+.gift-lbl{
+  font-family:var(--cg);font-size:.92rem;font-style:italic;
+  color:var(--verde);opacity:.5;margin-bottom:12px;display:block;
+}
+.gift-addr{
+  font-family:var(--cg);font-size:1.1rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--verde);line-height:2.2;opacity:.7;
+}
+
+/* RSVP */
+.rsvp-deadline{
+  font-family:var(--cg);font-size:.95rem;font-style:italic;
+  letter-spacing:.1em;color:var(--verde-lt);margin-bottom:32px;
+}
+.rsvp-intro{
+  font-family:var(--cg);font-size:1.1rem;line-height:1.9;
+  color:var(--verde);opacity:.7;
+  margin-bottom:48px;max-width:480px;margin-left:auto;margin-right:auto;
+}
+.rw{max-width:520px;margin:0 auto;text-align:left;}
+.rlbl{
+  font-family:var(--cg);font-size:.92rem;font-style:italic;
+  letter-spacing:.12em;color:var(--verde);
+  opacity:.65;display:block;margin-bottom:8px;
+}
+.rinput{
+  width:100%;border:none;
+  border-bottom:1px solid rgba(58,61,44,.25);
+  background:transparent;padding:10px 0;
+  font-family:var(--cg);font-size:1.1rem;
+  color:var(--verde);outline:none;
+}
+.rsugs{
+  background:#F3F0E8;
+  border:1px solid rgba(58,61,44,.12);
+  display:none;box-shadow:0 4px 20px rgba(58,61,44,.08);
+}
+.rsugs.show{display:block;}
+.rsug{
+  padding:12px 16px;font-family:var(--cg);font-size:1rem;
+  cursor:pointer;color:var(--verde);
+  border-bottom:1px solid rgba(58,61,44,.06);
+  transition:background .15s;
+}
+.rsug:hover{background:rgba(58,61,44,.04);}
+.rfield{margin-bottom:28px;}
+.revents{display:flex;flex-direction:column;gap:14px;}
+.rcheck{
+  display:flex;align-items:center;gap:10px;cursor:pointer;
+  font-family:var(--cg);font-size:1.1rem;color:var(--verde);
+}
+.rcheck input{accent-color:var(--verde);width:15px;height:15px;}
+.rbox{
+  background:rgba(58,61,44,.04);border:1px solid rgba(58,61,44,.1);
+  padding:14px 18px;margin-top:8px;
+  font-family:var(--cg);font-size:1.1rem;color:var(--verde);
+}
+.rradios{display:flex;gap:24px;margin-top:12px;}
+.rradios label{
+  display:flex;align-items:center;gap:8px;cursor:pointer;
+  font-family:var(--cg);font-size:.95rem;color:var(--verde);
+}
+.rradios input{accent-color:var(--verde);}
+.rbtn{
+  width:100%;font-family:var(--cg);
+  font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;
+  color:#fff;background:var(--verde);
+  border:none;padding:18px;cursor:pointer;
+  margin-top:20px;transition:background .2s;
+}
+.rbtn:hover{background:var(--verde-lt);}
+.rbtn-skip{
+  background:transparent;color:var(--verde);
+  border:1px solid rgba(58,61,44,.3);
+  width:auto;padding:18px 24px;
+}
+.rstep{display:none;}
+.rstep.active{display:block;}
+.rsel{font-family:var(--push);font-size:2rem;color:var(--verde-lt);margin-bottom:20px;}
+.rerr{font-family:var(--cg);font-size:.9rem;color:#8B3A3A;margin-top:8px;display:none;}
+.rok{display:none;padding:40px 0;text-align:center;}
+.rok-title{font-family:var(--push);font-size:3.2rem;color:var(--verde);margin-bottom:16px;}
+.rok-text{font-family:var(--cg);font-size:1.05rem;letter-spacing:.06em;color:var(--verde);opacity:.65;line-height:2;}
+
+/* FOOTER */
+footer{background:var(--verde);text-align:center;padding:64px 40px;}
+.fn{font-family:var(--push);font-size:4rem;color:rgba(243,239,231,.88);margin-bottom:14px;}
+.fd{font-family:var(--cg);font-size:.85rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(243,239,231,.38);}
+
+@media(max-width:900px){
+  .sec{padding:60px 40px;}
+  .welcome{padding:60px 40px;}
+  .prog-row{grid-template-columns:1fr;gap:48px;}
+  .g-flex .item{flex:0 0 160px;}
+  :root{--stripe-w:70px;}
+}
+@media(max-width:600px){
+  :root{--stripe-w:20px;}
+  .hero-nav{gap:20px;}
+  .hero-names{font-size:3.2rem;}
+  .sec{padding:50px 20px;}
+  .welcome{padding:50px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO (no stripes) -->
+<section id="hero">
+  <div class="hero-top">
+    <img class="hero-mono" src="https://i.ibb.co/m5H0jvcv/monograma-luana-e-theo.png" alt="L&T" onerror="this.style.display='none'"/>
+    <div class="hero-names">Luana & Theo</div>
+    <nav class="hero-nav">
+      <a href="#evento">O Evento</a>
+      <a href="#hospedagem">Onde Ficar</a>
+      <a href="#dicas">Dicas</a>
+      <a href="#presentes">Presentes</a>
+      <a href="#rsvp">RSVP</a>
+    </nav>
+  </div>
+  <div class="hero-pattern"></div>
+</section>
+
+<!-- WELCOME (stripe section) -->
+<div class="stripe-section welcome">
+  <div style="position:relative;z-index:1;">
+    <div class="welcome-title">Queridos familiares e amigos,</div>
+    <p class="welcome-text">Estamos muito felizes de dividir com vocês essa data tão especial. Como amamos celebrar e estar perto de quem mais amamos, preparamos um fim de semana de comemorações em Paraty, a cidade mais linda do Brasil para nós.</p>
+    <div style="font-family:var(--push);font-size:2.4rem;color:var(--verde);margin-top:32px;">com amor, Luana & Theo</div>
+  </div>
+</div>
+
+<div class="div-line"></div>
+
+<!-- PROGRAMAÇÃO -->
+<section id="evento" class="stripe-section">
+  <div class="sec" style="position:relative;z-index:1;">
+    <div class="sec-title">Programação</div>
+    <div class="prog-outer">
+
+      <!-- QUINTA -->
+      <div class="prog-single">
+        <img class="prog-icon" src="https://luanaetheo.vercel.app/escuna.png" alt="Escuna"/>
+        <div class="prog-day">Quinta Feira</div>
+        <div class="prog-dt">15.04.2027 &nbsp;|&nbsp; 13:00</div>
+        <div class="prog-ev">Festa na Escuna</div>
+        <div class="prog-det">Saída do Cais de Turismo de Paraty</div>
+        <div class="prog-det" style="font-style:italic;margin-top:4px;">Traje: roupa de praia</div>
+      </div>
+
+      <!-- SÁBADO -->
+      <div class="prog-sab-header">Sábado</div>
+      <div class="prog-sab-date">17.04.2027</div>
+      <div class="prog-row">
+        <div class="prog-single" style="margin-bottom:0;">
+          <img class="prog-icon" src="https://luanaetheo.vercel.app/igreja.png" alt="Igreja"/>
+          <div class="prog-ev" style="margin-top:8px;">Cerimônia</div>
+          <div class="prog-dt">15:00</div>
+          <div class="prog-det">Igreja Nossa Senhora do Rosário<br/>Centro Histórico de Paraty</div>
+        </div>
+        <div class="prog-single" style="margin-bottom:0;">
+          <img class="prog-icon" src="https://luanaetheo.vercel.app/coqueiro.png" alt="Recepção"/>
+          <div class="prog-ev" style="margin-top:8px;">Recepção</div>
+          <div class="prog-dt">17:00</div>
+          <div class="prog-det">Após a cerimônia, seguiremos a pé até o Cais de Turismo, onde embarcaremos para a recepção</div>
+        </div>
+      </div>
+      <div style="text-align:center;padding-top:16px;margin-bottom:48px;">
+        <div class="prog-traje-center">Vista-se como se sentir mais confortável</div>
+        <div class="prog-traje-sug">sugestão: homens sem gravata &nbsp;·&nbsp; mulheres de salto bloco, tamanco ou rasteira</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- HOSPEDAGEM (stripe section) -->
+<section id="hospedagem" class="stripe-section">
+  <div class="sec" style="position:relative;z-index:1;">
+    <div class="sec-title">Hospedagem</div>
+    <p style="font-family:var(--cg);font-size:1rem;font-style:italic;line-height:2;color:var(--verde);opacity:.72;margin-bottom:56px;max-width:540px;margin-left:auto;margin-right:auto;">
+      Recomendamos fortemente que se hospedem dentro do Centro Histórico — assim é possível ir e voltar de todas as comemorações a pé.
+    </p>
+
+    <img class="mono-div" src="https://i.ibb.co/m5H0jvcv/monograma-luana-e-theo.png" onerror="this.style.display='none'"/>
+    <div class="sub-title">Pousadas</div>
+    <div style="height:32px;"></div>
+
+    <div class="g-flex">
+      <div class="item">
+        <div class="iname">Pousada do Ouro</div>
+        <div class="isub">Informar que é convidado<br/>de Luana & Theo</div>
+        <a class="ilink" href="http://wa.me/552433714300" target="_blank">Entre em Contato</a>
+        <a class="ilink" href="http://www.pousadadoouro.com.br" target="_blank">Reserve Aqui</a>
+      </div>
+      <div class="item">
+        <div class="iname">Pousada da Marquesa</div>
+        <a class="ilink" href="http://wa.me/552433711263" target="_blank">Entre em Contato</a>
+        <a class="ilink" href="http://www.pousadamarquesa.com.br" target="_blank">Reserve Aqui</a>
+      </div>
+      <div class="item">
+        <div class="iname">Pousada do Cais</div>
+        <a class="ilink" href="http://wa.me/5524988316311" target="_blank">Entre em Contato</a>
+        <a class="ilink" href="http://www.pousadadocais.com.br" target="_blank">Reserve Aqui</a>
+      </div>
+      <div class="item">
+        <div class="iname">Pousada Aconchego</div>
+        <a class="ilink" href="http://wa.me/5524998647346" target="_blank">Entre em Contato</a>
+        <a class="ilink" href="http://www.aconchegohotel.com.br" target="_blank">Reserve Aqui</a>
+      </div>
+      <div class="item">
+        <div class="iname">Pousada Literária</div>
+        <a class="ilink" href="https://www.pousadaliteraria.com.br" target="_blank">Reserve Aqui</a>
+      </div>
+    </div>
+
+    <div style="height:16px;"></div>
+    <img class="mono-div" src="https://i.ibb.co/m5H0jvcv/monograma-luana-e-theo.png" onerror="this.style.display='none'"/>
+    <div class="sub-title">Airbnbs</div>
+    <div style="height:32px;"></div>
+
+    <div class="g-flex">
+      <div class="item">
+        <div class="iname">Norma</div>
+        <a class="ilink" href="https://www.airbnb.com.br" target="_blank">Entre em Contato</a>
+        <a class="ilink" href="https://www.airbnb.com.br" target="_blank">Reserve Aqui</a>
+      </div>
+      <div class="item">
+        <div class="iname">Anita</div>
+        <a class="ilink" href="https://www.airbnb.com.br" target="_blank">Entre em Contato</a>
+        <a class="ilink" href="https://www.airbnb.com.br" target="_blank">Reserve Aqui</a>
+      </div>
+      <div class="item">
+        <div class="iname">Kimy</div>
+        <a class="ilink" href="https://www.airbnb.com.br" target="_blank">Entre em Contato</a>
+        <a class="ilink" href="https://www.airbnb.com.br" target="_blank">Reserve Aqui</a>
+      </div>
+      <div class="item">
+        <div class="iname">Mariana</div>
+        <a class="ilink" href="https://www.airbnb.com.br" target="_blank">Entre em Contato</a>
+        <a class="ilink" href="https://www.airbnb.com.br" target="_blank">Reserve Aqui</a>
+      </div>
+      <div class="item">
+        <div class="iname">Marcus</div>
+        <a class="ilink" href="https://www.airbnb.com.br" target="_blank">Entre em Contato</a>
+        <a class="ilink" href="https://www.airbnb.com.br" target="_blank">Reserve Aqui</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- DICAS (stripe section) -->
+<section id="dicas" class="stripe-section">
+  <div class="sec" style="position:relative;z-index:1;">
+    <div class="sec-title">Dicas</div>
+
+    <img class="mono-div" src="https://i.ibb.co/m5H0jvcv/monograma-luana-e-theo.png" onerror="this.style.display='none'"/>
+    <div class="sub-title">Restaurantes</div>
+    <div style="height:32px;"></div>
+    <div class="g-flex">
+      <div class="item"><div class="iname">Thai Paraty</div><a class="ilink" href="https://www.instagram.com/thaiparaty/" target="_blank">Conheça Aqui</a></div>
+      <div class="item"><div class="iname">Gastromar</div><a class="ilink" href="https://www.instagram.com/gastromarparaty/" target="_blank">Conheça Aqui</a></div>
+      <div class="item"><div class="iname">Refugio</div><a class="ilink" href="https://www.instagram.com/refugioparaty/" target="_blank">Conheça Aqui</a></div>
+      <div class="item"><div class="iname">Banana da Terra</div><a class="ilink" href="https://www.instagram.com/restaurantebananadaterra/" target="_blank">Conheça Aqui</a></div>
+      <div class="item"><div class="iname">Bartholomeu</div><a class="ilink" href="https://www.instagram.com/bartholomeuparaty/" target="_blank">Conheça Aqui</a></div>
+      <div class="item"><div class="iname">Quintal das Letras</div><a class="ilink" href="https://www.instagram.com/quintaldasletrasparaty/" target="_blank">Conheça Aqui</a></div>
+    </div>
+
+    <img class="mono-div" src="https://i.ibb.co/m5H0jvcv/monograma-luana-e-theo.png" onerror="this.style.display='none'"/>
+    <div class="sub-title">Maquiagem e Cabelo</div>
+    <div style="height:32px;"></div>
+    <div class="g1">
+      <div class="item"><div class="iname">Evelyn Maia e Equipe</div><a class="ilink" href="https://www.instagram.com/evelynmaiamakeup/" target="_blank">Contato</a></div>
+      <div class="item"><div class="iname">Salão Thalita Araújo</div><a class="ilink" href="http://wa.me/5524999815213" target="_blank">Contato</a></div>
+      <div class="item"><div class="iname">Kakau Make</div><a class="ilink" href="http://wa.me/5524999885292" target="_blank">Contato</a></div>
+      <div class="item"><div class="iname">Studio Lu Rech</div><a class="ilink" href="http://wa.me/5521982426288" target="_blank">Contato</a></div>
+      <div class="item"><div class="iname">Adriana Bossens</div><a class="ilink" href="http://wa.me/5521981413706" target="_blank">Contato</a></div>
+    </div>
+
+    <img class="mono-div" src="https://i.ibb.co/m5H0jvcv/monograma-luana-e-theo.png" onerror="this.style.display='none'"/>
+    <div class="sub-title">Transporte</div>
+    <p style="font-family:var(--cg);font-size:.95rem;font-style:italic;line-height:2;color:var(--verde);opacity:.65;margin:16px auto 32px;max-width:480px;">Para quem se hospedar no Centro Histórico, ir e voltar de todas as comemorações é completamente a pé.</p>
+    <div class="g1">
+      <div class="item"><div class="iname">Taxi & Turismo Luis</div><a class="ilink" href="http://wa.me/5524992265018" target="_blank">Contato</a></div>
+      <div class="item"><div class="iname">Coopertaxi</div><a class="ilink" href="http://wa.me/5524974013902" target="_blank">Contato</a></div>
+      <div class="item"><div class="iname">Matheus</div><a class="ilink" href="http://wa.me/5524999724927" target="_blank">Contato</a></div>
+      <div class="item"><div class="iname">Gilson Junior</div><a class="ilink" href="http://wa.me/5524999740152" target="_blank">Contato</a></div>
+      <div class="item"><div class="iname">Taxi do Cazinho</div><a class="ilink" href="http://wa.me/5524998284842" target="_blank">Contato</a></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PRESENTES -->
+<section id="presentes" class="stripe-section">
+  <div class="sec" style="position:relative;z-index:1;">
+    <img class="mono-div" style="width:80px;margin-bottom:24px;" src="https://i.ibb.co/m5H0jvcv/monograma-luana-e-theo.png" onerror="this.style.display='none'"/>
+    <div class="sec-title">Lista de Presentes</div>
+    <div style="margin-bottom:44px;">
+      <a class="gift-btn" href="https://giftsluanaetheo.vercel.app" target="_blank">Lista Oficial do Casal</a>
+    </div>
+    <span class="gift-lbl">Para presentes físicos</span>
+    <div class="gift-addr">
+      Rua João Lourenço, 754 — Apt 24<br/>
+      Vila Nova Conceição, São Paulo — SP<br/>
+      CEP 04508-031
+    </div>
+  </div>
+</section>
+
+<div class="div-line"></div>
+
+<!-- RSVP (stripe section) -->
+<section id="rsvp" class="stripe-section">
+  <div class="sec" style="position:relative;z-index:1;">
+    <div class="sec-title">RSVP</div>
+    <div class="rsvp-deadline">Confirme sua presença até 20 de fevereiro de 2027</div>
+    <p class="rsvp-intro">Como nossos eventos contam com embarcação, precisamos confirmar o número de convidados com antecedência.</p>
+
+    <div class="rw">
+      <div class="rstep active" id="s1">
+        <div class="rfield">
+          <label class="rlbl">Nome Completo *</label>
+          <input class="rinput" id="ri" type="text" autocomplete="off"/>
+          <div class="rsugs" id="rs"></div>
+          <div class="rerr" id="re">Nome não encontrado. Verifique a grafia ou entre em contato com os noivos.</div>
+        </div>
+        <button class="rbtn" onclick="s1f()">Continuar</button>
+      </div>
+
+      <div class="rstep" id="s2">
+        <div class="rsel" id="s2n"></div>
+        <div id="ca"></div>
+        <div style="display:flex;gap:12px;margin-top:20px;">
+          <button class="rbtn rbtn-skip" onclick="s3f()">Pular</button>
+          <button class="rbtn" style="flex:1;" onclick="s3f()">Continuar</button>
+        </div>
+      </div>
+
+      <div class="rstep" id="s3">
+        <div class="rsel" id="s3n"></div>
+        <div class="rfield">
+          <label class="rlbl">Em quais eventos você participará?</label>
+          <div class="revents">
+            <label class="rcheck"><input type="checkbox" id="eq" checked/> Quinta-feira, 15/04 — Festa na Escuna (13h)</label>
+            <label class="rcheck"><input type="checkbox" id="es" checked/> Sábado, 17/04 — Cerimônia & Recepção (15h)</label>
+          </div>
+        </div>
+        <div id="cea"></div>
+        <div class="rfield" style="margin-top:24px;">
+          <label class="rlbl">WhatsApp com DDD *</label>
+          <input class="rinput" id="rtel" type="tel" placeholder="(XX) XXXXX-XXXX" autocomplete="tel"/>
+          <div class="rerr" id="re-tel">Por favor, informe seu WhatsApp com DDD.</div>
+        </div>
+        <button class="rbtn" onclick="subf()">Confirmar Presença</button>
+      </div>
+
+      <div class="rok" id="ok">
+        <div class="rok-title">Até Paraty!</div>
+        <div class="rok-text">Sua presença foi confirmada.<br/>Mal podemos esperar para celebrar com você.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fn">Luana & Theo</div>
+  <div class="fd">17 · 04 · 2027 &nbsp;—&nbsp; Paraty, Rio de Janeiro</div>
+</footer>
+
+<script>
+const G=[
+  {name:"Luciana Magalhães",companions:["Guilherme Moutinho"]},{name:"Guilherme Moutinho",companions:["Luciana Magalhães"]},
+  {name:"André Ribeiro",companions:[]},{name:"Mariana Ribeiro",companions:["Arthur"]},{name:"Arthur",companions:["Mariana Ribeiro"]},
+  {name:"Ana Luisa Magalhães",companions:[]},{name:"Juliana Magalhães",companions:["José Portela"]},{name:"José Portela",companions:["Juliana Magalhães"]},
+  {name:"Lucas Boaventura",companions:["Renato Dourado"]},{name:"Renato Dourado",companions:["Lucas Boaventura"]},
+  {name:"Dina Pereira",companions:["Carlos"]},{name:"Carlos",companions:["Dina Pereira"]},
+  {name:"Lucio Moura",companions:["Beatriz"]},{name:"Beatriz",companions:["Lucio Moura"]},
+  {name:"Adriana Moura",companions:["Murilo Jr","Pedro Moura","Fernanda Tamietti","Mariana Moura"]},
+  {name:"Murilo Jr",companions:["Adriana Moura"]},{name:"Pedro Moura",companions:["Adriana Moura"]},
+  {name:"Fernanda Tamietti",companions:["Adriana Moura"]},{name:"Mariana Moura",companions:["Adriana Moura"]},
+  {name:"Afonso Jr",companions:["Cristina Moura"]},{name:"Cristina Moura",companions:["Afonso Jr"]},
+  {name:"Isabela Moura",companions:["Augusto"]},{name:"Augusto",companions:["Isabela Moura"]},
+  {name:"Henrique Moura",companions:["Luisa Moura"]},{name:"Luisa Moura",companions:["Henrique Moura"]},
+  {name:"Daniel Moura",companions:[]},
+  {name:"Ricardo Moura",companions:["Bernardo Moura","Lorena Moura"]},{name:"Bernardo Moura",companions:["Ricardo Moura"]},{name:"Lorena Moura",companions:["Ricardo Moura"]},
+  {name:"Leonardo Moura",companions:["Josi Moura"]},{name:"Josi Moura",companions:["Leonardo Moura"]},
+  {name:"Rafaela Ribeiro",companions:["Gabriel Bacha"]},{name:"Gabriel Bacha",companions:["Rafaela Ribeiro"]},
+  {name:"Daniela Ribeiro",companions:["Leticia Ribeiro","Felipe Fitipaldi","Sophia Ribeiro","Antonio Celso Ribeiro"]},
+  {name:"Leticia Ribeiro",companions:["Daniela Ribeiro"]},{name:"Felipe Fitipaldi",companions:["Daniela Ribeiro"]},
+  {name:"Sophia Ribeiro",companions:["Daniela Ribeiro"]},{name:"Antonio Celso Ribeiro",companions:["Daniela Ribeiro"]},
+  {name:"Ana Vitoria Gontijo",companions:["Marcos Paolucci"]},{name:"Marcos Paolucci",companions:["Ana Vitoria Gontijo"]},
+  {name:"Gabriela Gontijo",companions:["Rodrigo Gontijo","Carolina Gontijo"]},
+  {name:"Rodrigo Gontijo",companions:["Gabriela Gontijo"]},{name:"Carolina Gontijo",companions:["Gabriela Gontijo"]},
+  {name:"Carolina Patrus",companions:["Eduardo Haidar"]},{name:"Eduardo Haidar",companions:["Carolina Patrus"]},
+  {name:"Mariana Patrus",companions:["Marco Antonio Patrus","Marum Patrus"]},
+  {name:"Marco Antonio Patrus",companions:["Mariana Patrus"]},{name:"Marum Patrus",companions:["Mariana Patrus"]},
+  {name:"Manuela Mattos",companions:["Felipe Rettore"]},{name:"Felipe Rettore",companions:["Manuela Mattos"]},
+  {name:"Marina Guimarães",companions:["João Dumont"]},{name:"João Dumont",companions:["Marina Guimarães"]},
+  {name:"Lara Gomes de Carvalho",companions:["Vinicius Carvalho"]},{name:"Vinicius Carvalho",companions:["Lara Gomes de Carvalho"]},
+  {name:"Clara Capanema",companions:["Bruno Figueiredo"]},{name:"Bruno Figueiredo",companions:["Clara Capanema"]},
+  {name:"Esther Lisboa",companions:["Gabriel Cardoso"]},{name:"Gabriel Cardoso",companions:["Esther Lisboa"]},
+  {name:"Beatriz Starling",companions:["Vitor Freitas"]},{name:"Vitor Freitas",companions:["Beatriz Starling"]},
+  {name:"Silvia Starling",companions:[]},{name:"Julia Salomão",companions:[]},
+  {name:"Ingrid Gontijo",companions:["Augusto de Assis"]},{name:"Augusto de Assis",companions:["Ingrid Gontijo"]},
+  {name:"Felipe Picchioni",companions:["Marcela Pinheiro"]},{name:"Marcela Pinheiro",companions:["Felipe Picchioni"]},
+  {name:"Eduardo Picchioni",companions:["Maria Isabel Picchioni"]},{name:"Maria Isabel Picchioni",companions:["Eduardo Picchioni"]},
+  {name:"Lucca Távora",companions:["Mariana Rabelo"]},{name:"Mariana Rabelo",companions:["Lucca Távora"]},
+  {name:"Clara Picchioni",companions:["Hugo Baião"]},{name:"Hugo Baião",companions:["Clara Picchioni"]},
+  {name:"Izabela Penna",companions:[]},
+  {name:"Mariana Savi",companions:["Aymeric"]},{name:"Aymeric",companions:["Mariana Savi"]},
+  {name:"Ana Carolina Lins",companions:["Davi Cansado"]},{name:"Davi Cansado",companions:["Ana Carolina Lins"]},
+  {name:"Fernanda Abreu",companions:["Rodrigo Wanderley"]},{name:"Rodrigo Wanderley",companions:["Fernanda Abreu"]},
+  {name:"Marina Carvalho",companions:["Petrônio Sousa"]},{name:"Petrônio Sousa",companions:["Marina Carvalho"]},
+  {name:"Georgia Ladeira",companions:["Vitor Azan"]},{name:"Vitor Azan",companions:["Georgia Ladeira"]},
+  {name:"Octavio Araripe",companions:[]},{name:"Janilson Vaz",companions:[]},
+  {name:"Victoria Barroso",companions:["Patrick Rocha"]},{name:"Patrick Rocha",companions:["Victoria Barroso"]},
+  {name:"Julia Maciel",companions:["Raphael Capelão"]},{name:"Raphael Capelão",companions:["Julia Maciel"]},
+  {name:"Carolina Drummond",companions:["Eduardo Procópio"]},{name:"Eduardo Procópio",companions:["Carolina Drummond"]},
+  {name:"Mateus Gualberto",companions:["Flavia Muniz"]},{name:"Flavia Muniz",companions:["Mateus Gualberto"]},
+  {name:"Helio Mendonça",companions:["Paolla"]},{name:"Paolla",companions:["Helio Mendonça"]},
+  {name:"Silvia Lage",companions:["Arthur Belisário"]},{name:"Arthur Belisário",companions:["Silvia Lage"]},
+  {name:"Nicole Junger",companions:["Igor Ladeira"]},{name:"Igor Ladeira",companions:["Nicole Junger"]},
+  {name:"Karina Magalhães",companions:[]},
+  {name:"Maria Helena Pires",companions:["Lucca Gazzinelli"]},{name:"Lucca Gazzinelli",companions:["Maria Helena Pires"]},
+  {name:"Larissa Contin",companions:[]},
+  {name:"Lorena Rosas",companions:["Gabriel Rego"]},{name:"Gabriel Rego",companions:["Lorena Rosas"]},
+  {name:"Joanna Bretas",companions:["Alessandro"]},{name:"Alessandro",companions:["Joanna Bretas","Maria Fernanda Gontijo"]},
+  {name:"Bruno Picchioni",companions:[]},{name:"Edmar",companions:[]},{name:"Eduardo Rangel",companions:[]},
+  {name:"Gustavo Etrusco",companions:["Barbara Beaumond"]},{name:"Barbara Beaumond",companions:["Gustavo Etrusco"]},
+  {name:"Georgia Starling",companions:["Cesar"]},{name:"Cesar",companions:["Georgia Starling"]},
+  {name:"Andre Marques",companions:["Gabriela Fon"]},{name:"Gabriela Fon",companions:["Andre Marques"]},
+  {name:"Paula Motta",companions:["Ricardo"]},{name:"Ricardo",companions:["Paula Motta"]},
+  {name:"Gustavo Carneiro",companions:["Beatriz Machado"]},{name:"Beatriz Machado",companions:["Gustavo Carneiro"]},
+  {name:"Maria Eduarda Boucherville",companions:["Gustavo Nascimento"]},{name:"Gustavo Nascimento",companions:["Maria Eduarda Boucherville"]},
+  {name:"Laura Delagnese",companions:["Fernando Social"]},{name:"Fernando Social",companions:["Laura Delagnese"]},
+  {name:"Jerusa Gambatto",companions:["Laura Kudiess","Bernardo Kudiess","Julia Kudiess"]},
+  {name:"Laura Kudiess",companions:["Jerusa Gambatto"]},{name:"Bernardo Kudiess",companions:["Jerusa Gambatto"]},{name:"Julia Kudiess",companions:["Jerusa Gambatto"]},
+  {name:"Sarah Ferreira",companions:["Pedro Furtado"]},{name:"Pedro Furtado",companions:["Sarah Ferreira"]},
+  {name:"Bruno Dias",companions:["Larissa Campos"]},{name:"Larissa Campos",companions:["Bruno Dias"]},
+  {name:"Ruben Alabart",companions:["Barbara Suppa"]},{name:"Barbara Suppa",companions:["Ruben Alabart"]},
+  {name:"Matheus Tamm",companions:["Paloma Monteiro"]},{name:"Paloma Monteiro",companions:["Matheus Tamm"]},
+  {name:"Henrique Lima",companions:["Maisa"]},{name:"Maisa",companions:["Henrique Lima"]},
+  {name:"Luis Felipe Calazans",companions:["Larissa Giarolla"]},{name:"Larissa Giarolla",companions:["Luis Felipe Calazans"]},
+  {name:"Victoria Giannetti",companions:["Eduardo Motta"]},{name:"Eduardo Motta",companions:["Victoria Giannetti"]},
+  {name:"Ana Luisa Pace",companions:["Rafael Lopes"]},{name:"Rafael Lopes",companions:["Ana Luisa Pace"]},
+  {name:"Vitor Duarte",companions:["Julia Coelho"]},{name:"Julia Coelho",companions:["Vitor Duarte"]},
+  {name:"Leonardo Baltazar",companions:[]},
+  {name:"João Misk",companions:["Lara Sette"]},{name:"Lara Sette",companions:["João Misk"]},
+  {name:"Eduardo Pedrosa",companions:["Maria Clara Morase"]},{name:"Maria Clara Morase",companions:["Eduardo Pedrosa"]},
+  {name:"Bernardo Rezende",companions:["Ana Laura Falcão"]},{name:"Ana Laura Falcão",companions:["Bernardo Rezende"]},
+  {name:"Bruno Rholfs",companions:["Julia Ramos"]},{name:"Julia Ramos",companions:["Bruno Rholfs"]},
+  {name:"João Pedro Perpétuo",companions:["Isabel Mazzetto"]},{name:"Isabel Mazzetto",companions:["João Pedro Perpétuo"]},
+  {name:"Rodrigo Picchioni",companions:["Julia Reis"]},{name:"Julia Reis",companions:["Rodrigo Picchioni"]},
+  {name:"Henrique Giannetti",companions:["Helena Mascarenhas"]},{name:"Helena Mascarenhas",companions:["Henrique Giannetti"]},
+  {name:"Liz Bastos",companions:["Rodolfo Neves"]},{name:"Rodolfo Neves",companions:["Liz Bastos"]},
+  {name:"Tulio Antunes",companions:["Jullia Nunes"]},{name:"Jullia Nunes",companions:["Tulio Antunes"]},
+  {name:"Pedro Marins",companions:["Victoria Barocchi"]},{name:"Victoria Barocchi",companions:["Pedro Marins"]},
+  {name:"Ilton Neto",companions:["Karin Bering"]},{name:"Karin Bering",companions:["Ilton Neto"]},
+  {name:"Vitor Coelho",companions:["Barbara Rojas"]},{name:"Barbara Rojas",companions:["Vitor Coelho"]},
+  {name:"Guilherme Lins",companions:["Julia Mundin"]},{name:"Julia Mundin",companions:["Guilherme Lins"]},
+  {name:"Rafael Barros",companions:["Sarah Bueno"]},{name:"Sarah Bueno",companions:["Rafael Barros"]},
+  {name:"Pedro Castro",companions:["Annastiina"]},{name:"Annastiina",companions:["Pedro Castro"]},
+  {name:"Lucas Santiago",companions:["Luisa Loureiro"]},{name:"Luisa Loureiro",companions:["Lucas Santiago"]},
+  {name:"Marcos Paulo Silveira",companions:["Marina Lanza"]},{name:"Marina Lanza",companions:["Marcos Paulo Silveira"]},
+  {name:"Marcos Tadeu",companions:["Marina Burrel"]},{name:"Marina Burrel",companions:["Marcos Tadeu"]},
+  {name:"Luisa Reis",companions:["Vitor Sousa"]},{name:"Vitor Sousa",companions:["Luisa Reis"]},
+  {name:"Giovanni Mendes",companions:["Bruna Calçado"]},{name:"Bruna Calçado",companions:["Giovanni Mendes"]},
+  {name:"Laura Bernardes",companions:[]},{name:"Bruno Sifuentes",companions:[]},
+  {name:"Diana Viotti",companions:["Otavio Vianna"]},{name:"Otavio Vianna",companions:["Diana Viotti"]},
+  {name:"Rafaela Bicalho",companions:[]},{name:"Angelo Mendes",companions:[]},{name:"Otavio Andrade",companions:[]},{name:"Fernando",companions:[]},
+  {name:"Nina Horta",companions:["Thiago","Claudia Abi-Ackel"]},{name:"Thiago",companions:["Nina Horta"]},{name:"Claudia Abi-Ackel",companions:["Nina Horta"]},
+  {name:"Guilherme Rebello Horta",companions:["Gloria Rebello Hora"]},{name:"Gloria Rebello Hora",companions:["Guilherme Rebello Horta"]},
+  {name:"Rafael Werneck",companions:["Ana Carolina Bins"]},{name:"Ana Carolina Bins",companions:["Rafael Werneck"]},
+  {name:"Clarice Abi-Ackel",companions:[]},
+  {name:"Eduardo Abi-Ackel",companions:["Marluce Abi-Ackel","Luisa Abi-Ackel","Bernardo Abi-Ackel"]},
+  {name:"Marluce Abi-Ackel",companions:["Eduardo Abi-Ackel"]},{name:"Luisa Abi-Ackel",companions:["Eduardo Abi-Ackel"]},{name:"Bernardo Abi-Ackel",companions:["Eduardo Abi-Ackel"]},
+  {name:"Rodolfo Morais",companions:["Laura Cunha"]},{name:"Laura Cunha",companions:["Rodolfo Morais"]},
+  {name:"Jose Trindade",companions:["Laura Saurin"]},{name:"Laura Saurin",companions:["Jose Trindade"]},
+  {name:"Pedro Lisboa",companions:[]},{name:"Felipe Machado",companions:[]},
+  {name:"Mariana Brito",companions:["Gian Ferro"]},{name:"Gian Ferro",companions:["Mariana Brito"]},
+  {name:"Rafael Monteiro",companions:["Lucia"]},{name:"Lucia",companions:["Rafael Monteiro"]},
+  {name:"Gabriel Pousada",companions:[]},
+  {name:"Vitor Morozini",companions:["Valentina Horta"]},{name:"Valentina Horta",companions:["Vitor Morozini"]},
+  {name:"Andre Savi",companions:["Stella Ferreira"]},{name:"Stella Ferreira",companions:["Andre Savi"]},
+  {name:"Roberto Rettore",companions:["Manuela Campolina"]},{name:"Manuela Campolina",companions:["Roberto Rettore"]},
+  {name:"Antonia Faustino",companions:["Mazinho"]},{name:"Mazinho",companions:["Antonia Faustino"]},
+  {name:"Giulia Federicci",companions:["Fabio"]},{name:"Fabio",companions:["Giulia Federicci"]},
+  {name:"João Paulo Rocha",companions:[]},
+  {name:"Alexandre Bins",companions:["Carminha Bins"]},{name:"Carminha Bins",companions:["Alexandre Bins"]},
+  {name:"Enzo Távora",companions:["Jose Caio Vaz"]},{name:"Jose Caio Vaz",companions:["Enzo Távora"]},
+  {name:"Victor Alvarenga",companions:["Leticia Sayuri"]},{name:"Leticia Sayuri",companions:["Victor Alvarenga"]},
+  {name:"Marcela Curi",companions:["Pedro Rigueira"]},{name:"Pedro Rigueira",companions:["Marcela Curi"]},
+  {name:"Stefan Madach",companions:["Bel Madach"]},{name:"Bel Madach",companions:["Stefan Madach"]},
+  {name:"Andre Quaresma",companions:["Chiara Quaresma"]},{name:"Chiara Quaresma",companions:["Andre Quaresma"]},
+  {name:"Rodrigo Xavier",companions:[]},{name:"Gabriel Varella",companions:[]},{name:"Diego Mendes",companions:[]},{name:"Pam Reid",companions:[]},
+  {name:"Paula Veloso",companions:["Giuliano Guzzardi"]},{name:"Giuliano Guzzardi",companions:["Paula Veloso"]},
+  {name:"Ana Luiza Drumond",companions:[]},{name:"Thiago Prates",companions:[]},{name:"Gabriela Miranda",companions:[]},
+  {name:"Bernardo Nicolau",companions:[]},{name:"Artur Storino",companions:[]},
+  {name:"Maria Fernanda Gontijo",companions:["Alessandro"]},
+];
+function nm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();}
+let guest=null,comp=null;
+const ri=document.getElementById('ri'),rs=document.getElementById('rs');
+ri.addEventListener('input',()=>{
+  document.getElementById('re').style.display='none';
+  const q=nm(ri.value);
+  if(q.length<2){rs.classList.remove('show');return;}
+  const r=G.filter(g=>nm(g.name).includes(q)).slice(0,8);
+  if(!r.length){rs.classList.remove('show');return;}
+  rs.innerHTML=r.map(g=>`<div class="rsug" onclick="pick('${g.name.replace(/'/g,"\'")}')">${g.name}${g.companions.length?' <span style="opacity:.38;font-size:.8rem;">+ acomp.</span>':''}</div>`).join('');
+  rs.classList.add('show');
+});
+document.addEventListener('click',e=>{if(!e.target.closest('#ri')&&!e.target.closest('#rs'))rs.classList.remove('show');});
+function pick(n){ri.value=n;guest=G.find(g=>g.name===n);rs.classList.remove('show');}
+function show(id){['s1','s2','s3'].forEach(x=>document.getElementById(x).classList.remove('active'));document.getElementById(id).classList.add('active');}
+function s1f(){
+  if(!guest){const q=nm(ri.value);guest=G.find(g=>nm(g.name)===q)||G.find(g=>nm(g.name).includes(q)&&q.length>=3);}
+  if(!guest){document.getElementById('re').style.display='block';return;}
+  document.getElementById('s2n').textContent=guest.name;
+  const ca=document.getElementById('ca');
+  if(!guest.companions.length){
+    ca.innerHTML='<p style="font-family:var(--cg);font-size:1rem;color:var(--verde);opacity:.6;margin-bottom:16px;font-style:italic;">Nenhum acompanhante registrado.</p>';
+  }else if(guest.companions.length===1){
+    comp=guest.companions[0];
+    ca.innerHTML=`<div class="rbox" style="margin-bottom:20px;"><div style="font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:8px;font-family:var(--cg);">Acompanhante registrado</div><div style="font-size:1rem;letter-spacing:.06em;">${comp}</div></div>
+    <div class="rfield"><label class="rlbl">Seu acompanhante virá?</label>
+    <div class="rradios"><label><input type="radio" name="yn" value="sim" checked/> Sim</label><label><input type="radio" name="yn" value="nao"/> Não</label></div></div>`;
+  }else{
+    ca.innerHTML='<div class="rfield"><label class="rlbl">Acompanhantes registrados</label><div class="revents">'+
+      guest.companions.map(c=>`<label class="rcheck"><input type="checkbox" name="cm" value="${c}" checked/> ${c}</label>`).join('')+
+      '</div></div>';
+  }
+  show('s2');
+}
+function s3f(){
+  const yn=document.querySelector('input[name="yn"]:checked');
+  if(yn) comp=yn.value==='sim'?guest.companions[0]:null;
+  const mc=document.querySelectorAll('input[name="cm"]:checked');
+  if(mc.length) comp=Array.from(mc).map(m=>m.value).join(', ');
+  document.getElementById('s3n').textContent=guest.name;
+  const cea=document.getElementById('cea');
+  if(comp){
+    cea.innerHTML=`<div class="rfield" style="margin-top:16px;"><label class="rlbl">${comp} — quais eventos?</label>
+    <div class="revents">
+      <label class="rcheck"><input type="checkbox" id="ceq" checked/> Quinta-feira, 15/04 — Escuna</label>
+      <label class="rcheck"><input type="checkbox" id="ces" checked/> Sábado, 17/04 — Casamento</label>
+    </div></div>`;
+  }else{cea.innerHTML='';}
+  show('s3');
+}
+async function subf(){
+  const tel = document.getElementById('rtel').value.trim();
+  if(!tel || tel.replace(/\D/g,'').length < 10){
+    document.getElementById('re-tel').style.display='block';
+    document.getElementById('rtel').focus();
+    return;
+  }
+  document.getElementById('re-tel').style.display='none';
+  const evs=[];
+  if(document.getElementById('eq').checked) evs.push('Quinta-feira 15/04 — Escuna');
+  if(document.getElementById('es').checked) evs.push('Sábado 17/04 — Casamento');
+  const cev=[];const ceq=document.getElementById('ceq'),ces=document.getElementById('ces');
+  if(ceq&&ceq.checked) cev.push('Quinta');if(ces&&ces.checked) cev.push('Sábado');
+  const entry={name:guest.name,companion:comp||'—',events:evs.join(', ')||'—',compEvents:cev.join(', ')||'—',telefone:tel,ts:new Date().toISOString()};
+  const all=JSON.parse(localStorage.getItem('rsvps_lt')||'[]');
+  all.push(entry);localStorage.setItem('rsvps_lt',JSON.stringify(all));
+  try{
+    await fetch('https://formspree.io/f/xlgakjrg',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({_subject:'✉️ RSVP: '+entry.name,nome:entry.name,telefone:entry.telefone,acompanhante:entry.companion,eventos:entry.events,eventos_acompanhante:entry.compEvents,data:new Date().toLocaleString('pt-BR')})
+    });
+  }catch(e){console.error(e);}
+  document.getElementById('s3').classList.remove('active');
+  document.getElementById('ok').style.display='block';
+}
+</script>
+</body>
+</html>

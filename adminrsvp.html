@@ -619,7 +619,8 @@ function buildStdMessage(g) {
   const partner = g.plusOneId ? guestById(g.plusOneId) : null;
   const name = firstNameG(g.fullName);
   const greet = partner ? `${name} e ${firstNameG(partner.fullName)}` : name;
-  return `Oi, ${greet}! 🤍\n\nLuana e Theo, com muita felicidade, compartilhamos a data do nosso casamento. Em breve, enviaremos o site com mais informações. Enquanto isso, caso já possa confirmar sua presença, temos ótimos hotéis para indicar,\n\nEsperamos vocês em Paraty! Com carinho, Luana e Theo`;
+  const possa = partner ? 'possam' : 'possa';
+  return `${greet}, com muita felicidade, compartilhamos a data do nosso casamento. Em breve, enviaremos o site com mais informações. Enquanto isso, caso já ${possa} confirmar sua presença, temos ótimos hotéis para indicar,\n\nEsperamos vocês em Paraty! Com carinho, Luana e Theo`;
 }
 function escapeHtmlC(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

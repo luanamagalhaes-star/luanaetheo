@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin RSVP — Luana & Theo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --verde: #3A3D2C;
+  --verde-lt: #4A6741;
+  --cream: #F3EFE7;
+  --bege: #EAE6DC;
+  --sand: #D4CFC5;
+  --cg: 'Cormorant Garamond', Georgia, serif;
+  --alice: 'Cormorant Garamond', Georgia, serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--cg);
+  background: var(--bege);
+  color: var(--verde);
+  min-height: 100vh;
+}
+
+/* LOGIN */
+#login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cream);
+}
+.login-box {
+  text-align: center;
+  padding: 56px 48px;
+  background: white;
+  border: 1px solid rgba(58,61,44,0.1);
+  box-shadow: 0 4px 40px rgba(58,61,44,0.08);
+  max-width: 380px;
+  width: 100%;
+}
+.login-title {
+  font-family: var(--cg);
+  font-style: italic;
+  font-size: 2rem;
+  color: var(--verde);
+  margin-bottom: 8px;
+}
+.login-sub {
+  font-family: var(--alice);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--verde);
+  opacity: 0.5;
+  margin-bottom: 36px;
+}
+.login-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(58,61,44,0.25);
+  background: transparent;
+  padding: 10px 0;
+  font-family: var(--cg);
+  font-size: 1rem;
+  color: var(--verde);
+  outline: none;
+  margin-bottom: 28px;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+.login-btn {
+  width: 100%;
+  background: var(--verde);
+  color: var(--cream);
+  border: none;
+  padding: 14px;
+  font-family: var(--alice);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.login-btn:hover { background: var(--verde-lt); }
+.login-error {
+  font-family: var(--alice);
+  font-size: 0.75rem;
+  color: #8B3A3A;
+  margin-top: 12px;
+  display: none;
+}
+
+/* MAIN */
+#main { display: none; }
+
+header {
+  background: var(--verde);
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-title {
+  font-family: var(--cg);
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--cream);
+}
+.header-sub {
+  font-family: var(--alice);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(243,239,231,0.45);
+  margin-top: 2px;
+}
+.logout-btn {
+  font-family: var(--alice);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(243,239,231,0.5);
+  background: none;
+  border: 1px solid rgba(243,239,231,0.2);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.logout-btn:hover { color: var(--cream); border-color: rgba(243,239,231,0.5); }
+
+.content { padding: 40px; max-width: 1200px; margin: 0 auto; }
+
+/* STATS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.stat-card {
+  background: white;
+  border: 1px solid rgba(58,61,44,0.08);
+  padding: 24px 20px;
+  text-align: center;
+}
+.stat-number {
+  font-family: var(--cg);
+  font-size: 2.8rem;
+  color: var(--verde);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-family: var(--alice);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--verde);
+  opacity: 0.55;
+}
+
+/* FILTERS */
+.filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.filter-input {
+  flex: 1;
+  min-width: 200px;
+  border: 1px solid rgba(58,61,44,0.15);
+  background: white;
+  padding: 10px 16px;
+  font-family: var(--cg);
+  font-size: 0.95rem;
+  color: var(--verde);
+  outline: none;
+}
+.filter-select {
+  border: 1px solid rgba(58,61,44,0.15);
+  background: white;
+  padding: 10px 16px;
+  font-family: var(--cg);
+  font-size: 0.95rem;
+  color: var(--verde);
+  outline: none;
+  cursor: pointer;
+}
+.action-btn {
+  font-family: var(--alice);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-export {
+  background: var(--verde-lt);
+  color: white;
+}
+.btn-export:hover { background: var(--verde); }
+.btn-refresh {
+  background: var(--sand);
+  color: var(--verde);
+  border: 1px solid rgba(58,61,44,0.2);
+}
+.btn-refresh:hover { background: var(--bege); }
+.btn-clear {
+  background: transparent;
+  color: #8B3A3A;
+  border: 1px solid rgba(139,58,58,0.3);
+}
+.btn-clear:hover { background: rgba(139,58,58,0.06); }
+
+/* TABLE */
+.table-wrap {
+  background: white;
+  border: 1px solid rgba(58,61,44,0.08);
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+thead {
+  background: var(--verde);
+}
+thead th {
+  font-family: var(--alice);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(243,239,231,0.7);
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: normal;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+thead th:hover { color: var(--cream); }
+thead th .sort-arrow { opacity: 0.4; margin-left: 4px; }
+thead th.sorted .sort-arrow { opacity: 1; }
+
+tbody tr {
+  border-bottom: 1px solid rgba(58,61,44,0.06);
+  transition: background 0.15s;
+}
+tbody tr:hover { background: rgba(58,61,44,0.02); }
+tbody td {
+  font-family: var(--cg);
+  font-size: 0.95rem;
+  color: var(--verde);
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+.td-name { font-weight: 500; }
+.td-comp { opacity: 0.65; font-style: italic; }
+.badge {
+  display: inline-block;
+  font-family: var(--alice);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin: 2px 2px 2px 0;
+}
+.badge-quinta { background: rgba(90,122,74,0.12); color: var(--verde-lt); }
+.badge-sabado { background: rgba(58,61,44,0.1); color: var(--verde); }
+.td-date {
+  font-family: var(--alice);
+  font-size: 0.68rem;
+  opacity: 0.45;
+  white-space: nowrap;
+}
+.btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(139,58,58,0.4);
+  font-size: 1rem;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+.btn-delete:hover { color: #8B3A3A; }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  font-family: var(--cg);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--verde);
+  opacity: 0.4;
+}
+
+/* FORMSPREE PANEL */
+.panel {
+  background: white;
+  border: 1px solid rgba(58,61,44,0.08);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.panel-title {
+  font-family: var(--alice);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--verde);
+  opacity: 0.6;
+  margin-bottom: 16px;
+}
+.formspree-note {
+  font-family: var(--cg);
+  font-size: 0.95rem;
+  color: var(--verde);
+  opacity: 0.75;
+  line-height: 1.7;
+}
+.formspree-note a {
+  color: var(--verde-lt);
+}
+
+
+/* TABS */
+.tabs { display:flex; gap:0; margin-bottom:28px; border-bottom:1px solid rgba(58,61,44,0.12); }
+.tab-btn {
+  background:none; border:none; font-family:var(--alice); font-size:.7rem;
+  letter-spacing:.15em; text-transform:uppercase; color:var(--verde); opacity:.5;
+  padding:14px 22px; cursor:pointer; border-bottom:2px solid transparent; transition:all .2s;
+}
+.tab-btn:hover { opacity:.8; }
+.tab-btn.active { opacity:1; border-bottom-color:var(--verde-lt); }
+
+/* CONVIDADOS TAB */
+.mini-input, .mini-select {
+  font-family:var(--cg); font-size:.85rem; color:var(--verde);
+  border:none; background:transparent; padding:3px 4px; border-radius:2px; width:100%;
+}
+.mini-input:hover, .mini-select:hover, .mini-input:focus, .mini-select:focus {
+  background:rgba(58,61,44,0.05); outline:none;
+}
+.chip {
+  display:inline-block; font-family:var(--alice); font-size:.6rem; letter-spacing:.08em;
+  text-transform:uppercase; padding:4px 9px; border-radius:2px; cursor:pointer;
+  background:rgba(58,61,44,0.07); color:var(--verde); opacity:.55; white-space:nowrap; user-select:none;
+}
+.chip.on { background:rgba(74,103,65,0.15); color:var(--verde-lt); opacity:1; font-weight:600; }
+.wa-mini-btn {
+  display:inline-flex; align-items:center; gap:5px; background:#25D366; color:white;
+  font-family:var(--cg); font-size:.75rem; padding:5px 10px; text-decoration:none;
+  border-radius:2px; white-space:nowrap;
+}
+.wa-mini-btn:hover { background:#1da851; }
+.form-label {
+  display:block; font-family:var(--alice); font-size:.62rem; letter-spacing:.12em;
+  text-transform:uppercase; opacity:.5; margin-bottom:6px;
+}
+
+@media(max-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .content { padding: 20px; }
+  header { padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-title">Luana & Theo</div>
+    <div class="login-sub">Painel RSVP — Acesso restrito</div>
+    <input class="login-input" id="pwd" type="password" placeholder="senha" onkeydown="if(event.key==='Enter')login()"/>
+    <button class="login-btn" onclick="login()">Entrar</button>
+    <div class="login-error" id="login-err">Senha incorreta.</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <header>
+    <div>
+      <div class="header-title">Painel RSVP</div>
+      <div class="header-sub">Luana & Theo · 17.04.2027 · Paraty</div>
+    </div>
+    <button class="logout-btn" onclick="logout()">Sair</button>
+  </header>
+
+  <div class="content">
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="rsvp" onclick="showTab('rsvp')">RSVP</button>
+      <button class="tab-btn" data-tab="convidados" onclick="showTab('convidados')">Convidados</button>
+    </div>
+
+    <div id="tab-rsvp">
+    <!-- FORMSPREE NOTE -->
+    <div class="panel">
+      <div class="panel-title">📧 Notificações por e-mail</div>
+      <p class="formspree-note">
+        Cada confirmação de RSVP é enviada automaticamente para <strong>lmagalhaesmoura@gmail.com</strong> via Formspree.
+        As confirmações também ficam salvas aqui neste painel (localStorage do navegador dos convidados é consolidado via Formspree).
+        <br/><br/>
+        Para ver todas as submissões Formspree: <a href="https://formspree.io/forms/xlgakjrg/submissions" target="_blank">formspree.io → submissions</a>
+      </p>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number" id="stat-total">0</div>
+        <div class="stat-label">Confirmados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-quinta">0</div>
+        <div class="stat-label">Quinta · Escuna</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-sabado">0</div>
+        <div class="stat-label">Sábado · Casamento</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-comp">0</div>
+        <div class="stat-label">Com Acompanhante</div>
+      </div>
+    </div>
+
+    <!-- FILTERS + ACTIONS -->
+    <div class="filters">
+      <input class="filter-input" id="search" type="text" placeholder="Buscar por nome ou acompanhante..." oninput="render()"/>
+      <select class="filter-select" id="filter-ev" onchange="render()">
+        <option value="">Todos os eventos</option>
+        <option value="Quinta">Quinta — Escuna</option>
+        <option value="Sábado">Sábado — Casamento</option>
+      </select>
+      <select class="filter-select" id="filter-comp" onchange="render()">
+        <option value="">Todos</option>
+        <option value="sim">Com acompanhante</option>
+        <option value="nao">Sem acompanhante</option>
+      </select>
+      <button class="action-btn btn-refresh" onclick="loadFromFormspree()">↻ Atualizar</button>
+      <button class="action-btn btn-export" onclick="exportCSV()">⬇ Exportar CSV</button>
+      <button class="action-btn btn-clear" onclick="clearAll()">Limpar dados</button>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th onclick="sortBy('name')">Nome <span class="sort-arrow" id="arr-name">↕</span></th>
+            <th onclick="sortBy('telefone')">WhatsApp <span class="sort-arrow" id="arr-telefone">↕</span></th>
+            <th onclick="sortBy('companion')">Acompanhante <span class="sort-arrow" id="arr-companion">↕</span></th>
+            <th>Eventos</th>
+            <th>Eventos Acompanhante</th>
+            <th onclick="sortBy('ts')">Confirmado em <span class="sort-arrow" id="arr-ts">↕</span></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="empty-state" id="empty" style="display:none;">Nenhuma confirmação encontrada.</div>
+    </div>
+    </div><!-- /tab-rsvp -->
+
+    <div id="tab-convidados" style="display:none">
+
+      <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));">
+        <div class="stat-card"><div class="stat-number" id="cv-total">0</div><div class="stat-label">Convidados</div></div>
+        <div class="stat-card"><div class="stat-number" id="cv-std">0</div><div class="stat-label">Save the date</div></div>
+        <div class="stat-card"><div class="stat-number" id="cv-conv">0</div><div class="stat-label">Convite enviado</div></div>
+        <div class="stat-card"><div class="stat-number" id="cv-pre">0</div><div class="stat-label">Pré-wedding</div></div>
+        <div class="stat-card"><div class="stat-number" id="cv-cas">0</div><div class="stat-label">Casamento</div></div>
+        <div class="stat-card"><div class="stat-number" id="cv-hotel">0</div><div class="stat-label">Hotel confirmado</div></div>
+        <div class="stat-card"><div class="stat-number" id="cv-presente">0</div><div class="stat-label">Deram presente</div></div>
+      </div>
+
+      <div class="filters">
+        <input class="filter-input" id="conv-search" type="text" placeholder="Buscar por nome, WhatsApp ou hotel..." oninput="renderConvidados()"/>
+        <select class="filter-select" id="conv-filter" onchange="renderConvidados()">
+          <option value="">Todos</option>
+          <option value="no-whatsapp">Sem WhatsApp</option>
+          <option value="no-hotel">Sem hotel definido</option>
+          <option value="hotel-unconfirmed">Hotel não confirmado</option>
+          <option value="std-pending">Save the date pendente</option>
+          <option value="invite-pending">Convite pendente</option>
+          <option value="wedding-yes">Confirmados no casamento</option>
+          <option value="wedding-pending">Sem resposta do casamento</option>
+          <option value="gift-yes">Já deram presente</option>
+        </select>
+        <button class="action-btn btn-export" onclick="toggleAddPanel(true)">+ Adicionar convidado</button>
+        <button class="action-btn btn-refresh" onclick="exportConvidadosCSV()">⬇ Exportar CSV</button>
+      </div>
+
+      <div class="panel" id="conv-add-panel" style="display:none;">
+        <div class="panel-title">Novo convidado</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:16px;">
+          <div><label class="form-label">Nome completo *</label><input class="filter-input" id="conv-new-name" style="width:100%;" placeholder="Nome e sobrenome"/></div>
+          <div><label class="form-label">WhatsApp</label><input class="filter-input" id="conv-new-whatsapp" style="width:100%;" placeholder="DDD+número"/></div>
+          <div><label class="form-label">Hotel</label><input class="filter-input" id="conv-new-hotel" style="width:100%;" placeholder="Onde vai se hospedar"/></div>
+          <div><label class="form-label">Par (plus one)</label><select class="filter-select" id="conv-new-partner" style="width:100%;"><option value="">— nenhum —</option></select></div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;">
+          <button class="action-btn btn-refresh" onclick="toggleAddPanel(false)">Cancelar</button>
+          <button class="action-btn btn-export" onclick="addGuestConv()">Salvar convidado</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>WhatsApp</th>
+              <th>Par (plus one)</th>
+              <th>Hotel</th>
+              <th>Hospedagem</th>
+              <th>Save the date</th>
+              <th>Convite</th>
+              <th>Pré-wedding</th>
+              <th>Casamento</th>
+              <th>Presente</th>
+              <th>Qual presente</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody-conv"></tbody>
+        </table>
+        <div class="empty-state" id="conv-empty" style="display:none;">Nenhum convidado encontrado.</div>
+      </div>
+
+    </div><!-- /tab-convidados -->
+
+  </div>
+</div>
+
+<script>
+const PWD = 'casamento2026';
+let rsvps = [];
+
+const DEFAULT_GUESTS = [{"fullName":"luana","fullNameLower":"luana","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g002","id":"g001"},{"fullName":"theo","fullNameLower":"theo","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g001","id":"g002"},{"fullName":"Luciana Magalhães","fullNameLower":"luciana magalhães","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g004","id":"g003"},{"fullName":"Guilherme Moutinho","fullNameLower":"guilherme moutinho","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g003","id":"g004"},{"fullName":"Andre Ribeiro","fullNameLower":"andre ribeiro","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g005"},{"fullName":"Mariana Ribeiro","fullNameLower":"mariana ribeiro","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g007","id":"g006"},{"fullName":"Arthur","fullNameLower":"arthur","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g006","id":"g007"},{"fullName":"Ana Luisa Moura","fullNameLower":"ana luisa moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g008"},{"fullName":"Juliana Magalhães","fullNameLower":"juliana magalhães","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g010","id":"g009"},{"fullName":"José Portella","fullNameLower":"josé portella","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g009","id":"g010"},{"fullName":"Lucas Boaventura","fullNameLower":"lucas boaventura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g012","id":"g011"},{"fullName":"Renato Dourado","fullNameLower":"renato dourado","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g011","id":"g012"},{"fullName":"Dina Pereira","fullNameLower":"dina pereira","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g013"},{"fullName":"(sem nome, nº 14)","fullNameLower":"(sem nome, nº 14)","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g014"},{"fullName":"Lucio Moura","fullNameLower":"lucio moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g016","id":"g015"},{"fullName":"Beatriz Avelar","fullNameLower":"beatriz avelar","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g015","id":"g016"},{"fullName":"Adriana Moura","fullNameLower":"adriana moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g018","id":"g017"},{"fullName":"Murilo Jr","fullNameLower":"murilo jr","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g017","id":"g018"},{"fullName":"Pedro Moura","fullNameLower":"pedro moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g020","id":"g019"},{"fullName":"Fernanda Tamietti","fullNameLower":"fernanda tamietti","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g019","id":"g020"},{"fullName":"Mariana Moura","fullNameLower":"mariana moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g021"},{"fullName":"Rosa Carvalho","fullNameLower":"rosa carvalho","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g022"},{"fullName":"Afonso Jr","fullNameLower":"afonso jr","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g024","id":"g023"},{"fullName":"Cristina Moura","fullNameLower":"cristina moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g023","id":"g024"},{"fullName":"Isabela Moura","fullNameLower":"isabela moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g026","id":"g025"},{"fullName":"Augusto","fullNameLower":"augusto","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g025","id":"g026"},{"fullName":"Henrique Moura","fullNameLower":"henrique moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g028","id":"g027"},{"fullName":"Luisa Nobrega","fullNameLower":"luisa nobrega","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g027","id":"g028"},{"fullName":"Daniel Moura","fullNameLower":"daniel moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g029"},{"fullName":"Ricardo Moura","fullNameLower":"ricardo moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g031","id":"g030"},{"fullName":"Bernardo Moura","fullNameLower":"bernardo moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g030","plusOneHint":null,"id":"g031"},{"fullName":"Lorena Moura","fullNameLower":"lorena moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g032"},{"fullName":"Leonardo Moura","fullNameLower":"leonardo moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g034","id":"g033"},{"fullName":"Josiane Moura","fullNameLower":"josiane moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g033","id":"g034"},{"fullName":"Rafaela Ribeiro Bacha","fullNameLower":"rafaela ribeiro bacha","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g036","id":"g035"},{"fullName":"Gabriel Bacha","fullNameLower":"gabriel bacha","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneHint":null,"plusOneId":"g035","id":"g036"},{"fullName":"Leticia Ribeiro","fullNameLower":"leticia ribeiro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g038","id":"g037"},{"fullName":"Felipe Fitipaldi","fullNameLower":"felipe fitipaldi","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g037","id":"g038"},{"fullName":"Sophia Ribeiro","fullNameLower":"sophia ribeiro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g039"},{"fullName":"Antonio Celso Ribeiro","fullNameLower":"antonio celso ribeiro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g041","id":"g040"},{"fullName":"Daniela Cesar","fullNameLower":"daniela cesar","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g040","id":"g041"},{"fullName":"Ana Vitoria Gontijo Paolucci","fullNameLower":"ana vitoria gontijo paolucci","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g043","id":"g042"},{"fullName":"Marcos Paolucci","fullNameLower":"marcos paolucci","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g042","id":"g043"},{"fullName":"Gabriela Procopio","fullNameLower":"gabriela procopio","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g045","id":"g044"},{"fullName":"Rodrigo Gontojo","fullNameLower":"rodrigo gontojo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g044","id":"g045"},{"fullName":"Carolina Gontijo","fullNameLower":"carolina gontijo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g047","id":"g046"},{"fullName":"Henrique Pardini","fullNameLower":"henrique pardini","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g046","id":"g047"},{"fullName":"Carolina Patrus","fullNameLower":"carolina patrus","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g049","id":"g048"},{"fullName":"Eduardo Haidar","fullNameLower":"eduardo haidar","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g048","id":"g049"},{"fullName":"Mariana Patrus","fullNameLower":"mariana patrus","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g051","id":"g050"},{"fullName":"Marco Antonio Patrus","fullNameLower":"marco antonio patrus","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g050","id":"g051"},{"fullName":"Marum Patrus","fullNameLower":"marum patrus","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g053","id":"g052"},{"fullName":"Clara Melo","fullNameLower":"clara melo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g052","id":"g053"},{"fullName":"Manuela Mattos","fullNameLower":"manuela mattos","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g055","id":"g054"},{"fullName":"Felipe Rettore","fullNameLower":"felipe rettore","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g054","id":"g055"},{"fullName":"Marina Guimarães","fullNameLower":"marina guimarães","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g057","id":"g056"},{"fullName":"João Victor Dumont","fullNameLower":"joão victor dumont","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g056","id":"g057"},{"fullName":"Lara Gomes de Carvalho","fullNameLower":"lara gomes de carvalho","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g059","id":"g058"},{"fullName":"Vinicius Carvalho","fullNameLower":"vinicius carvalho","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g058","id":"g059"},{"fullName":"Clara Capanema Figueiredo","fullNameLower":"clara capanema figueiredo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g061","id":"g060"},{"fullName":"Bruno Figueiredo","fullNameLower":"bruno figueiredo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g060","id":"g061"},{"fullName":"Esther Lisboa","fullNameLower":"esther lisboa","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g063","id":"g062"},{"fullName":"Gabriel Cardoso","fullNameLower":"gabriel cardoso","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g062","id":"g063"},{"fullName":"Beatriz Starling","fullNameLower":"beatriz starling","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g065","id":"g064"},{"fullName":"Vitor Freitas","fullNameLower":"vitor freitas","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g064","id":"g065"},{"fullName":"Silvia Starling","fullNameLower":"silvia starling","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g066"},{"fullName":"Julia Salomão","fullNameLower":"julia salomão","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g067"},{"fullName":"Ingrid Mascarenhas","fullNameLower":"ingrid mascarenhas","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g069","id":"g068"},{"fullName":"Augusto de Assis","fullNameLower":"augusto de assis","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g068","id":"g069"},{"fullName":"Felipe Picchioni","fullNameLower":"felipe picchioni","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g071","id":"g070"},{"fullName":"Marcela Pinheiro","fullNameLower":"marcela pinheiro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g070","id":"g071"},{"fullName":"Eduardo Picchioni","fullNameLower":"eduardo picchioni","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g073","id":"g072"},{"fullName":"Maria Isabel Picchioni","fullNameLower":"maria isabel picchioni","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g072","id":"g073"},{"fullName":"Lucca Távora","fullNameLower":"lucca távora","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g075","id":"g074"},{"fullName":"Mariana Rabello","fullNameLower":"mariana rabello","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g074","id":"g075"},{"fullName":"Clara Picchioni","fullNameLower":"clara picchioni","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g077","id":"g076"},{"fullName":"Hugo Baião","fullNameLower":"hugo baião","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g076","id":"g077"},{"fullName":"Izabela Penna","fullNameLower":"izabela penna","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g078"},{"fullName":"Mariana Savi","fullNameLower":"mariana savi","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g080","id":"g079"},{"fullName":"Aymeric","fullNameLower":"aymeric","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g079","id":"g080"},{"fullName":"Ana Carolina Lins","fullNameLower":"ana carolina lins","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g082","id":"g081"},{"fullName":"Davi Cançado","fullNameLower":"davi cançado","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g081","id":"g082"},{"fullName":"Fernanda Abreu","fullNameLower":"fernanda abreu","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g084","id":"g083"},{"fullName":"Rodrigo Wanderley","fullNameLower":"rodrigo wanderley","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g083","id":"g084"},{"fullName":"Marina Carvalho","fullNameLower":"marina carvalho","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g085"},{"fullName":"Georgia Ladeira","fullNameLower":"georgia ladeira","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g088","id":"g087"},{"fullName":"Vitor Azan","fullNameLower":"vitor azan","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g087","id":"g088"},{"fullName":"Octavio Araripe","fullNameLower":"octavio araripe","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g089"},{"fullName":"Janilson Vaz","fullNameLower":"janilson vaz","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g090"},{"fullName":"Victoria Barroso","fullNameLower":"victoria barroso","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g092","id":"g091"},{"fullName":"Patrick Rocha","fullNameLower":"patrick rocha","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g091","id":"g092"},{"fullName":"Julia Maciello Capelão","fullNameLower":"julia maciello capelão","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g094","id":"g093"},{"fullName":"Raphael Capelão","fullNameLower":"raphael capelão","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g093","id":"g094"},{"fullName":"Carolina Drummond","fullNameLower":"carolina drummond","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g096","id":"g095"},{"fullName":"Eduardo Procópio","fullNameLower":"eduardo procópio","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g095","id":"g096"},{"fullName":"Mateus Gualberto","fullNameLower":"mateus gualberto","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g098","id":"g097"},{"fullName":"Flavia Amaral","fullNameLower":"flavia amaral","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g097","id":"g098"},{"fullName":"Helio Mendonça","fullNameLower":"helio mendonça","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g100","id":"g099"},{"fullName":"Paolla","fullNameLower":"paolla","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g099","id":"g100"},{"fullName":"Silvia Lage","fullNameLower":"silvia lage","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g102","id":"g101"},{"fullName":"Arthur Belisario","fullNameLower":"arthur belisario","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g101","id":"g102"},{"fullName":"Nicolle Junger","fullNameLower":"nicolle junger","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g104","id":"g103"},{"fullName":"Igor Ladeira","fullNameLower":"igor ladeira","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g103","id":"g104"},{"fullName":"Karina Magalhães","fullNameLower":"karina magalhães","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g105"},{"fullName":"namo","fullNameLower":"namo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneHint":"Provável par de: karina (nº 105)","id":"g106"},{"fullName":"Maria Helena Pires","fullNameLower":"maria helena pires","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g108","id":"g107"},{"fullName":"Lucca Gazinelli","fullNameLower":"lucca gazinelli","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g107","id":"g108"},{"fullName":"Larissa Contin","fullNameLower":"larissa contin","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g109"},{"fullName":"Lorena Rosas","fullNameLower":"lorena rosas","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g111","id":"g110"},{"fullName":"Gabriel Rego","fullNameLower":"gabriel rego","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g110","id":"g111"},{"fullName":"Joanna Bretas","fullNameLower":"joanna bretas","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g113","id":"g112"},{"fullName":"Alessandro","fullNameLower":"alessandro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g112","id":"g113"},{"fullName":"Ana Carolina Santos","fullNameLower":"ana carolina santos","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g114"},{"fullName":"Bruno Picchioni","fullNameLower":"bruno picchioni","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g115"},{"fullName":"Edmar Oliveira","fullNameLower":"edmar oliveira","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g116"},{"fullName":"Eduardo Ragel","fullNameLower":"eduardo ragel","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g117"},{"fullName":"Gustavo Etrusco","fullNameLower":"gustavo etrusco","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g119","id":"g118"},{"fullName":"Barbara Beaumond","fullNameLower":"barbara beaumond","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g118","id":"g119"},{"fullName":"Georgia Starling","fullNameLower":"georgia starling","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g121","id":"g120"},{"fullName":"Cesar","fullNameLower":"cesar","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g120","id":"g121"},{"fullName":"André Marques","fullNameLower":"andré marques","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g123","id":"g122"},{"fullName":"Gabriela Fon","fullNameLower":"gabriela fon","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g122","id":"g123"},{"fullName":"Paula Motta","fullNameLower":"paula motta","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g125","id":"g124"},{"fullName":"Ricardo Villas","fullNameLower":"ricardo villas","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g124","id":"g125"},{"fullName":"Gustavo Carneiro","fullNameLower":"gustavo carneiro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g127","id":"g126"},{"fullName":"Beatriz Machado","fullNameLower":"beatriz machado","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g126","id":"g127"},{"fullName":"Maria Eduarda Boucherville","fullNameLower":"maria eduarda boucherville","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g129","plusOneHint":null,"id":"g128"},{"fullName":"namo","fullNameLower":"namo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g128","id":"g129"},{"fullName":"Laura Dellagnese","fullNameLower":"laura dellagnese","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g131","id":"g130"},{"fullName":"Fernando Scopel","fullNameLower":"fernando scopel","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g130","id":"g131"},{"fullName":"Sarah Ferreira","fullNameLower":"sarah ferreira","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g133","id":"g132"},{"fullName":"Pedro Furtado","fullNameLower":"pedro furtado","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g132","id":"g133"},{"fullName":"Bruno Dias","fullNameLower":"bruno dias","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g135","id":"g134"},{"fullName":"Larissa Campos","fullNameLower":"larissa campos","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g134","id":"g135"},{"fullName":"Ruben Alabart","fullNameLower":"ruben alabart","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g137","id":"g136"},{"fullName":"Bárbara Suppa","fullNameLower":"bárbara suppa","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g136","id":"g137"},{"fullName":"Matheus Tamm","fullNameLower":"matheus tamm","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g139","id":"g138"},{"fullName":"Paloma Monteiro","fullNameLower":"paloma monteiro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g138","id":"g139"},{"fullName":"Henrique Lima","fullNameLower":"henrique lima","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g141","id":"g140"},{"fullName":"Maisa","fullNameLower":"maisa","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g140","id":"g141"},{"fullName":"Luis Felipe Calazans","fullNameLower":"luis felipe calazans","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g143","id":"g142"},{"fullName":"Larissa Giarola","fullNameLower":"larissa giarola","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g142","id":"g143"},{"fullName":"Victoria Giannetti","fullNameLower":"victoria giannetti","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g145","id":"g144"},{"fullName":"Eduardo Motta","fullNameLower":"eduardo motta","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g144","id":"g145"},{"fullName":"Ana Luiza Pace","fullNameLower":"ana luiza pace","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g147","id":"g146"},{"fullName":"Rafael Lopes","fullNameLower":"rafael lopes","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g146","id":"g147"},{"fullName":"Victor Duarte","fullNameLower":"victor duarte","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g149","id":"g148"},{"fullName":"Julia Coelho","fullNameLower":"julia coelho","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g148","id":"g149"},{"fullName":"Leonardo Baltazar","fullNameLower":"leonardo baltazar","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g150"},{"fullName":"Henrique Benfica","fullNameLower":"henrique benfica","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g151"},{"fullName":"João Misk","fullNameLower":"joão misk","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g153","id":"g152"},{"fullName":"Lara Sette","fullNameLower":"lara sette","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g152","id":"g153"},{"fullName":"Eduardo Pedrosa","fullNameLower":"eduardo pedrosa","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g155","id":"g154"},{"fullName":"Maria Clara Moraes","fullNameLower":"maria clara moraes","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g154","id":"g155"},{"fullName":"Bernardo Rezende","fullNameLower":"bernardo rezende","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g157","id":"g156"},{"fullName":"Ana Laura Falcão","fullNameLower":"ana laura falcão","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g156","id":"g157"},{"fullName":"Bruno Rholfs","fullNameLower":"bruno rholfs","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g159","id":"g158"},{"fullName":"Julia Ramos","fullNameLower":"julia ramos","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g158","id":"g159"},{"fullName":"João Pedro Perpetuo","fullNameLower":"joão pedro perpetuo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneHint":null,"plusOneId":"g161","id":"g160"},{"fullName":"Izabel Mazetto","fullNameLower":"izabel mazetto","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g160","id":"g161"},{"fullName":"Rodrigo Picchioni","fullNameLower":"rodrigo picchioni","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g163","id":"g162"},{"fullName":"Julia Reis","fullNameLower":"julia reis","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g162","id":"g163"},{"fullName":"Henrique Gianetti","fullNameLower":"henrique gianetti","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g165","id":"g164"},{"fullName":"Helena Mascarenhas","fullNameLower":"helena mascarenhas","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g164","id":"g165"},{"fullName":"Liz Penido","fullNameLower":"liz penido","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g167","id":"g166"},{"fullName":"Rodolfo Neves","fullNameLower":"rodolfo neves","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g166","id":"g167"},{"fullName":"Tulio Antunes","fullNameLower":"tulio antunes","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g169","id":"g168"},{"fullName":"Julia Nunes","fullNameLower":"julia nunes","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g168","id":"g169"},{"fullName":"Pedro Marins","fullNameLower":"pedro marins","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g171","id":"g170"},{"fullName":"Victoria Mauro","fullNameLower":"victoria mauro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g170","id":"g171"},{"fullName":"Ilton Neto","fullNameLower":"ilton neto","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g173","id":"g172"},{"fullName":"Karin Bhering","fullNameLower":"karin bhering","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g172","id":"g173"},{"fullName":"Vitor Coelho","fullNameLower":"vitor coelho","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g175","id":"g174"},{"fullName":"Barbara Rojas","fullNameLower":"barbara rojas","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g174","id":"g175"},{"fullName":"Guilherme Lins","fullNameLower":"guilherme lins","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g177","id":"g176"},{"fullName":"Julia Mundim","fullNameLower":"julia mundim","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g176","id":"g177"},{"fullName":"Rafael Barros","fullNameLower":"rafael barros","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g179","id":"g178"},{"fullName":"Sara Bueno","fullNameLower":"sara bueno","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g178","id":"g179"},{"fullName":"Pedro Castro","fullNameLower":"pedro castro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g181","id":"g180"},{"fullName":"Annastiina","fullNameLower":"annastiina","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g180","id":"g181"},{"fullName":"Lucas Santiago","fullNameLower":"lucas santiago","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g183","id":"g182"},{"fullName":"Luisa Loureiro","fullNameLower":"luisa loureiro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g182","id":"g183"},{"fullName":"Marcos Paulo Luz","fullNameLower":"marcos paulo luz","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g185","id":"g184"},{"fullName":"Marina Laisa","fullNameLower":"marina laisa","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g184","id":"g185"},{"fullName":"Marcos Thadeu Azevedo","fullNameLower":"marcos thadeu azevedo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g187","id":"g186"},{"fullName":"Marina Burrel","fullNameLower":"marina burrel","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g186","id":"g187"},{"fullName":"Luisa Reis","fullNameLower":"luisa reis","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g189","id":"g188"},{"fullName":"Vitor Souza","fullNameLower":"vitor souza","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g188","id":"g189"},{"fullName":"Giovanni Mendes","fullNameLower":"giovanni mendes","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g191","id":"g190"},{"fullName":"Bruna Cançado","fullNameLower":"bruna cançado","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g190","id":"g191"},{"fullName":"Laura Bernardes","fullNameLower":"laura bernardes","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g192"},{"fullName":"Diana Viotti","fullNameLower":"diana viotti","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g194","id":"g193"},{"fullName":"Otavio Vianna","fullNameLower":"otavio vianna","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g193","id":"g194"},{"fullName":"Rafaela Bicalho","fullNameLower":"rafaela bicalho","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g196","plusOneHint":null,"id":"g195"},{"fullName":"namo","fullNameLower":"namo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g195","id":"g196"},{"fullName":"Angelo Mendes","fullNameLower":"angelo mendes","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g198","id":"g197"},{"fullName":"Maria Soun","fullNameLower":"maria soun","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g197","id":"g198"},{"fullName":"Otavio Andrade","fullNameLower":"otavio andrade","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g199"},{"fullName":"Fernando Raso","fullNameLower":"fernando raso","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g200"},{"fullName":"Nina Horta","fullNameLower":"nina horta","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g202","id":"g201"},{"fullName":"Thiago Jannotti","fullNameLower":"thiago jannotti","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g201","id":"g202"},{"fullName":"Claudia Vieira","fullNameLower":"claudia vieira","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g203"},{"fullName":"Guilherme Rebello Horta","fullNameLower":"guilherme rebello horta","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g204"},{"fullName":"(sem nome, nº 205)","fullNameLower":"(sem nome, nº 205)","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g205"},{"fullName":"Rafael Werneck","fullNameLower":"rafael werneck","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g207","id":"g206"},{"fullName":"Ana Carolina Bins","fullNameLower":"ana carolina bins","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g206","id":"g207"},{"fullName":"Clarice Vieira","fullNameLower":"clarice vieira","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g208"},{"fullName":"Marcos Marinho","fullNameLower":"marcos marinho","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g209"},{"fullName":"Eduardo Vieira","fullNameLower":"eduardo vieira","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g211","id":"g210"},{"fullName":"Marluce Costa","fullNameLower":"marluce costa","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g210","id":"g211"},{"fullName":"Luisa Vieira","fullNameLower":"luisa vieira","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g213","id":"g212"},{"fullName":"Diogo","fullNameLower":"diogo","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g212","id":"g213"},{"fullName":"Bernardo Vieira","fullNameLower":"bernardo vieira","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g214"},{"fullName":"Rodolfo Morais","fullNameLower":"rodolfo morais","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g216","id":"g215"},{"fullName":"Laura Cunha","fullNameLower":"laura cunha","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g215","id":"g216"},{"fullName":"Jose Trindade","fullNameLower":"jose trindade","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g218","id":"g217"},{"fullName":"Laura Saurin","fullNameLower":"laura saurin","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g217","id":"g218"},{"fullName":"Pedro Lisboa","fullNameLower":"pedro lisboa","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g219"},{"fullName":"Felipe Machado","fullNameLower":"felipe machado","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g220"},{"fullName":"Mariana Brito","fullNameLower":"mariana brito","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g222","id":"g221"},{"fullName":"Gian Ferro","fullNameLower":"gian ferro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g221","id":"g222"},{"fullName":"Rafael Monteiro","fullNameLower":"rafael monteiro","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g224","id":"g223"},{"fullName":"Lucia Gutierrez","fullNameLower":"lucia gutierrez","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g223","id":"g224"},{"fullName":"Samuel Martinez","fullNameLower":"samuel martinez","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g225"},{"fullName":"Gabriel Pousada","fullNameLower":"gabriel pousada","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g226"},{"fullName":"Vitor Morozini","fullNameLower":"vitor morozini","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g228","id":"g227"},{"fullName":"Valentina Horta","fullNameLower":"valentina horta","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g227","id":"g228"},{"fullName":"Lucas Herrera","fullNameLower":"lucas herrera","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g230","plusOneHint":null,"id":"g229"},{"fullName":"Adriana Sayuri","fullNameLower":"adriana sayuri","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g229","id":"g230"},{"fullName":"João Assumpção","fullNameLower":"joão assumpção","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g231"},{"fullName":"Lucas Hoon","fullNameLower":"lucas hoon","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g233","id":"g232"},{"fullName":"Lin Chen","fullNameLower":"lin chen","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g232","id":"g233"},{"fullName":"Fernando Bortoleto","fullNameLower":"fernando bortoleto","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g234"},{"fullName":"namo","fullNameLower":"namo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneHint":"Fernando Borboleta","id":"g235"},{"fullName":"Thiago Robson","fullNameLower":"thiago robson","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g237","plusOneHint":null,"id":"g236"},{"fullName":"namo","fullNameLower":"namo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g236","id":"g237"},{"fullName":"Breno Marti","fullNameLower":"breno marti","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g239","id":"g238"},{"fullName":"Iasmin Paiva","fullNameLower":"iasmin paiva","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneHint":null,"plusOneId":"g238","id":"g239"},{"fullName":"Victor Alvarenga","fullNameLower":"victor alvarenga","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g240"},{"fullName":"Leticia Sayuri","fullNameLower":"leticia sayuri","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g241"},{"fullName":"André Quaresma","fullNameLower":"andré quaresma","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g243","id":"g242"},{"fullName":"Chiara Quaresma","fullNameLower":"chiara quaresma","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g242","id":"g243"},{"fullName":"Rodrigo Xavier","fullNameLower":"rodrigo xavier","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g245","plusOneHint":null,"id":"g244"},{"fullName":"esposa","fullNameLower":"esposa","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g244","id":"g245"},{"fullName":"Gabriel Varella","fullNameLower":"gabriel varella","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g247","plusOneHint":null,"id":"g246"},{"fullName":"esposa","fullNameLower":"esposa","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g246","id":"g247"},{"fullName":"Diego Mendes","fullNameLower":"diego mendes","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g249","plusOneHint":null,"id":"g248"},{"fullName":"esposa","fullNameLower":"esposa","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g248","id":"g249"},{"fullName":"André Savi","fullNameLower":"andré savi","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g251","id":"g250"},{"fullName":"Stella Dias","fullNameLower":"stella dias","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g250","id":"g251"},{"fullName":"Roberto Rettore","fullNameLower":"roberto rettore","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g253","id":"g252"},{"fullName":"Manuela Campolina","fullNameLower":"manuela campolina","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g252","id":"g253"},{"fullName":"Antonia Faustino","fullNameLower":"antonia faustino","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g255","plusOneHint":null,"id":"g254"},{"fullName":"mazinho","fullNameLower":"mazinho","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g254","id":"g255"},{"fullName":"Giulia Federicci","fullNameLower":"giulia federicci","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g257","id":"g256"},{"fullName":"Fabio Murta","fullNameLower":"fabio murta","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g256","id":"g257"},{"fullName":"João Paulo Rocha","fullNameLower":"joão paulo rocha","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g258"},{"fullName":"Alexandre Bins","fullNameLower":"alexandre bins","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g260","id":"g259"},{"fullName":"Carmen Bins","fullNameLower":"carmen bins","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g259","id":"g260"},{"fullName":"Enzo Tavora","fullNameLower":"enzo tavora","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g262","id":"g261"},{"fullName":"Jose Caio Vaz","fullNameLower":"jose caio vaz","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g261","id":"g262"},{"fullName":"Pam Reid","fullNameLower":"pam reid","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g263"},{"fullName":"Valencia","fullNameLower":"valencia","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g264"},{"fullName":"Gabriela Miranda","fullNameLower":"gabriela miranda","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g265"},{"fullName":"Marcela Curi","fullNameLower":"marcela curi","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g267","id":"g266"},{"fullName":"Pedro Rigueira","fullNameLower":"pedro rigueira","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g266","id":"g267"},{"fullName":"Paula Veloso","fullNameLower":"paula veloso","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneHint":null,"plusOneId":"g269","id":"g268"},{"fullName":"Giuliano Guzzardi","fullNameLower":"giuliano guzzardi","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g268","id":"g269"},{"fullName":"Paula Rocha","fullNameLower":"paula rocha","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g271","id":"g270"},{"fullName":"Bruno Rocha","fullNameLower":"bruno rocha","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g270","id":"g271"},{"fullName":"Victoria Figueiredo","fullNameLower":"victoria figueiredo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g272"},{"fullName":"Livia Olavarrida","fullNameLower":"livia olavarrida","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g273"},{"fullName":"Veridiana Marques","fullNameLower":"veridiana marques","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g274"},{"fullName":"Maria Izabel Távora","fullNameLower":"maria izabel távora","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g276","id":"g275"},{"fullName":"João Luiz Távora","fullNameLower":"joão luiz távora","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g275","id":"g276"},{"fullName":"Simone Campos","fullNameLower":"simone campos","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g278","id":"g277"},{"fullName":"Helcio Guimarães","fullNameLower":"helcio guimarães","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g277","id":"g278"},{"fullName":"Cristiana Pittella","fullNameLower":"cristiana pittella","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g279"},{"fullName":"Cristina Salomão","fullNameLower":"cristina salomão","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g281","id":"g280"},{"fullName":"Jonas","fullNameLower":"jonas","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g280","id":"g281"},{"fullName":"Valeria Capanema","fullNameLower":"valeria capanema","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g282"},{"fullName":"Cristiana Mascarenhas","fullNameLower":"cristiana mascarenhas","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g283"},{"fullName":"Ana Paula Fonte Boa","fullNameLower":"ana paula fonte boa","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g284"},{"fullName":"Henrique Zuquim","fullNameLower":"henrique zuquim","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g286","id":"g285"},{"fullName":"Marie Barailon","fullNameLower":"marie barailon","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g285","id":"g286"},{"fullName":"Maria Fernanda Gontijo","fullNameLower":"maria fernanda gontijo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g288","id":"g287"},{"fullName":"Alessandro Ortenblad","fullNameLower":"alessandro ortenblad","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g287","id":"g288"},{"fullName":"Felipe Campos","fullNameLower":"felipe campos","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g290","id":"g289"},{"fullName":"Fernanda Campolina","fullNameLower":"fernanda campolina","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g289","id":"g290"},{"fullName":"Artur Storino","fullNameLower":"artur storino","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g291"},{"fullName":"Jerusa Gambatto","fullNameLower":"jerusa gambatto","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g293","id":"g292"},{"fullName":"Enrico Marchesini","fullNameLower":"enrico marchesini","whatsapp":"","saveTheDate":true,"invitationSent":true,"preWedding":true,"wedding":true,"giftGiven":true,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g292","id":"g293"},{"fullName":"Laura Kuddiess","fullNameLower":"laura kuddiess","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g295","plusOneHint":null,"id":"g294"},{"fullName":"namordo","fullNameLower":"namordo","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g294","id":"g295"},{"fullName":"Julia Kudiess","fullNameLower":"julia kudiess","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g297","id":"g296"},{"fullName":"Leonardo Lukas Leodolter","fullNameLower":"leonardo lukas leodolter","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g296","id":"g297"},{"fullName":"Bernardo Kudiess","fullNameLower":"bernardo kudiess","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g298"},{"fullName":"Marcia Viana Lopes","fullNameLower":"marcia viana lopes","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g300","id":"g299"},{"fullName":"André Schmidt Brito","fullNameLower":"andré schmidt brito","whatsapp":"","saveTheDate":true,"invitationSent":true,"preWedding":true,"wedding":true,"giftGiven":true,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g299","id":"g300"},{"fullName":"Maria Augusta Viana","fullNameLower":"maria augusta viana","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g301"},{"fullName":"Maria Tereza Lara Resende","fullNameLower":"maria tereza lara resende","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g302"},{"fullName":"Andrea Vial","fullNameLower":"andrea vial","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g304","id":"g303"},{"fullName":"Luis Carlos Vial","fullNameLower":"luis carlos vial","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g303","id":"g304"},{"fullName":"Katia Gomes Mora","fullNameLower":"katia gomes mora","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g306","id":"g305"},{"fullName":"Mauricio Moura","fullNameLower":"mauricio moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g305","id":"g306"},{"fullName":"Patricia Barreto","fullNameLower":"patricia barreto","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g308","id":"g307"},{"fullName":"Ricardo Barreto","fullNameLower":"ricardo barreto","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g307","id":"g308"},{"fullName":"Rita Dias","fullNameLower":"rita dias","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g310","id":"g309"},{"fullName":"Paulo Carneiro","fullNameLower":"paulo carneiro","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g309","id":"g310"},{"fullName":"Bernardo Tamm","fullNameLower":"bernardo tamm","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g312","id":"g311"},{"fullName":"Clymene Tamm","fullNameLower":"clymene tamm","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g311","id":"g312"},{"fullName":"Heloisa Araujo","fullNameLower":"heloisa araujo","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g314","id":"g313"},{"fullName":"Vicente Araujo","fullNameLower":"vicente araujo","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g313","id":"g314"},{"fullName":"Eduardo Guatimosim","fullNameLower":"eduardo guatimosim","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g316","id":"g315"},{"fullName":"Adriana Guatimosim","fullNameLower":"adriana guatimosim","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g315","id":"g316"},{"fullName":"Alice Passos","fullNameLower":"alice passos","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g317"},{"fullName":"Bruna veloso","fullNameLower":"bruna veloso","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g318"},{"fullName":"Juliana Calazans","fullNameLower":"juliana calazans","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g320","plusOneHint":null,"id":"g319"},{"fullName":"namorado","fullNameLower":"namorado","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g319","id":"g320"},{"fullName":"Frederico Mota","fullNameLower":"frederico mota","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g322","id":"g321"},{"fullName":"Everton Lonkoski","fullNameLower":"everton lonkoski","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g321","id":"g322"},{"fullName":"Anna Paola Frade Pimenta da Veiga","fullNameLower":"anna paola frade pimenta da veiga","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g324","id":"g323"},{"fullName":"João Pimenta da Veiga","fullNameLower":"joão pimenta da veiga","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g323","id":"g324"},{"fullName":"Pedro Pimenta da Veiga","fullNameLower":"pedro pimenta da veiga","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g326","id":"g325"},{"fullName":"Nathalia Zamith","fullNameLower":"nathalia zamith","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneHint":null,"plusOneId":"g325","id":"g326"},{"fullName":"Ramona Gomes","fullNameLower":"ramona gomes","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g328","id":"g327"},{"fullName":"Eduardo Gomes","fullNameLower":"eduardo gomes","whatsapp":"","saveTheDate":false,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g327","id":"g328"},{"fullName":"João Bosco Tonucci","fullNameLower":"joão bosco tonucci","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g330","id":"g329"},{"fullName":"Denise Tonucci","fullNameLower":"denise tonucci","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"plusOneId":"g329","id":"g330"},{"fullName":"Sofia Avelar","fullNameLower":"sofia avelar","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g331"},{"fullName":"namorado","fullNameLower":"namorado","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g332"},{"fullName":"Renata Moura","fullNameLower":"renata moura","whatsapp":"","saveTheDate":true,"invitationSent":false,"preWedding":false,"wedding":false,"giftGiven":false,"giftDescription":"","hotel":"","hotelConfirmed":false,"id":"g333"}];
+let convidados = [];
+
+function loadConvidados() {
+  const stored = localStorage.getItem('convidados_lt');
+  convidados = stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(DEFAULT_GUESTS));
+  if (!stored) saveConvidados();
+  renderConvidados();
+}
+function saveConvidados() {
+  localStorage.setItem('convidados_lt', JSON.stringify(convidados));
+}
+function guestById(id) { return convidados.find(g => g.id === id); }
+function firstNameG(full) { return (full || '').trim().split(/\s+/)[0] || ''; }
+function digitsOnlyG(s) { return (s || '').replace(/\D/g, ''); }
+function toWaPhoneG(raw) {
+  let d = digitsOnlyG(raw);
+  if (!d) return null;
+  if (d.length <= 11) d = '55' + d;
+  return d;
+}
+function buildStdMessage(g) {
+  const partner = g.plusOneId ? guestById(g.plusOneId) : null;
+  const name = firstNameG(g.fullName);
+  const greet = partner ? `${name} e ${firstNameG(partner.fullName)}` : name;
+  return `Oi, ${greet}! 🤍\n\nLuana e Theo, com muita felicidade, compartilhamos a data do nosso casamento. Em breve, enviaremos o site com mais informações.\n\nEsperamos vocês em Paraty!\nCom carinho, Luana e Theo`;
+}
+function escapeHtmlC(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function buildGuestWaBtn(g) {
+  const phone = toWaPhoneG(g.whatsapp);
+  if (!phone) return '<span style="opacity:.3;font-size:.8rem;font-family:var(--cg);">sem tel.</span>';
+  const msg = encodeURIComponent(buildStdMessage(g));
+  return `<a href="https://wa.me/${phone}?text=${msg}" target="_blank" class="wa-mini-btn">💬 Save the date</a>`;
+}
+function chip(id, field, value, label) {
+  return `<span class="chip ${value ? 'on' : ''}" onclick="toggleGuestField('${id}','${field}')">${value ? '✓ ' : ''}${label}</span>`;
+}
+function partnerOptionsConv(currentId, selectedId) {
+  const opts = ['<option value="">— nenhum —</option>'];
+  convidados
+    .filter(x => x.id !== currentId)
+    .sort((a, b) => (a.fullName || '').localeCompare(b.fullName || '', 'pt-BR'))
+    .forEach(o => {
+      opts.push(`<option value="${o.id}" ${o.id === selectedId ? 'selected' : ''}>${escapeHtmlC(o.fullName)}</option>`);
+    });
+  return opts.join('');
+}
+function rowHtmlConv(g) {
+  const hintTxt = (!g.plusOneId && g.plusOneHint) ? ` <span style="opacity:.4;font-size:.68rem;">(sug: ${escapeHtmlC(g.plusOneHint)})</span>` : '';
+  return `<tr>
+    <td><input class="mini-input" style="font-weight:500;min-width:150px;" value="${escapeHtmlC(g.fullName)}" onchange="updateGuestField('${g.id}','fullName',this.value)"/></td>
+    <td><input class="mini-input" style="min-width:130px;" placeholder="DDD+número" value="${escapeHtmlC(g.whatsapp)}" onchange="updateGuestField('${g.id}','whatsapp',this.value)"/></td>
+    <td><select class="mini-select" style="min-width:150px;" onchange="linkPartner('${g.id}', this.value)">${partnerOptionsConv(g.id, g.plusOneId)}</select>${hintTxt}</td>
+    <td><input class="mini-input" style="min-width:140px;" placeholder="Hotel" value="${escapeHtmlC(g.hotel)}" onchange="updateGuestField('${g.id}','hotel',this.value)"/></td>
+    <td>${chip(g.id, 'hotelConfirmed', g.hotelConfirmed, 'Confirmada')}</td>
+    <td>${chip(g.id, 'saveTheDate', g.saveTheDate, 'Enviado')}</td>
+    <td>${chip(g.id, 'invitationSent', g.invitationSent, 'Enviado')}</td>
+    <td>${chip(g.id, 'preWedding', g.preWedding, 'Vai')}</td>
+    <td>${chip(g.id, 'wedding', g.wedding, 'Vai')}</td>
+    <td>${chip(g.id, 'giftGiven', g.giftGiven, 'Sim')}</td>
+    <td><input class="mini-input" style="min-width:120px;" placeholder="Qual presente" value="${escapeHtmlC(g.giftDescription)}" onchange="updateGuestField('${g.id}','giftDescription',this.value)"/></td>
+    <td>${buildGuestWaBtn(g)}</td>
+    <td><button class="btn-delete" onclick="deleteGuestConv('${g.id}')" title="Remover">✕</button></td>
+  </tr>`;
+}
+function renderConvidados() {
+  const term = norm(document.getElementById('conv-search').value);
+  const filterVal = document.getElementById('conv-filter').value;
+  let data = [...convidados];
+  if (term) {
+    data = data.filter(g => norm(g.fullName).includes(term) || norm(g.whatsapp).includes(term) || norm(g.hotel).includes(term));
+  }
+  const preds = {
+    'no-whatsapp': g => !g.whatsapp,
+    'no-hotel': g => !g.hotel,
+    'hotel-unconfirmed': g => !!g.hotel && !g.hotelConfirmed,
+    'std-pending': g => !g.saveTheDate,
+    'invite-pending': g => !g.invitationSent,
+    'wedding-yes': g => !!g.wedding,
+    'wedding-pending': g => !g.wedding,
+    'gift-yes': g => !!g.giftGiven,
+  };
+  if (filterVal && preds[filterVal]) data = data.filter(preds[filterVal]);
+
+  document.getElementById('cv-total').textContent = convidados.length;
+  document.getElementById('cv-std').textContent = convidados.filter(g => g.saveTheDate).length;
+  document.getElementById('cv-conv').textContent = convidados.filter(g => g.invitationSent).length;
+  document.getElementById('cv-pre').textContent = convidados.filter(g => g.preWedding).length;
+  document.getElementById('cv-cas').textContent = convidados.filter(g => g.wedding).length;
+  document.getElementById('cv-hotel').textContent = convidados.filter(g => g.hotelConfirmed).length;
+  document.getElementById('cv-presente').textContent = convidados.filter(g => g.giftGiven).length;
+
+  const sorted = [...data].sort((a, b) => (a.fullName || '').localeCompare(b.fullName || '', 'pt-BR'));
+  const seen = new Set();
+  const ordered = [];
+  for (const g of sorted) {
+    if (seen.has(g.id)) continue;
+    ordered.push(g); seen.add(g.id);
+    if (g.plusOneId) {
+      const p = guestById(g.plusOneId);
+      if (p && !seen.has(p.id) && data.includes(p)) { ordered.push(p); seen.add(p.id); }
+    }
+  }
+
+  const tbody = document.getElementById('tbody-conv');
+  const empty = document.getElementById('conv-empty');
+  if (!ordered.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    tbody.innerHTML = ordered.map(rowHtmlConv).join('');
+  }
+}
+function toggleGuestField(id, field) {
+  const g = guestById(id); if (!g) return;
+  g[field] = !g[field];
+  saveConvidados();
+  renderConvidados();
+}
+function updateGuestField(id, field, value) {
+  const g = guestById(id); if (!g) return;
+  g[field] = value;
+  saveConvidados();
+  renderConvidados();
+}
+function linkPartner(id, partnerId) {
+  const g = guestById(id); if (!g) return;
+  partnerId = partnerId || null;
+  const oldPartnerId = g.plusOneId || null;
+  if (partnerId) {
+    const p = guestById(partnerId);
+    if (p) {
+      const pOld = p.plusOneId || null;
+      if (pOld && pOld !== id) { const po = guestById(pOld); if (po) po.plusOneId = null; }
+      p.plusOneId = id;
+      p.plusOneHint = null;
+    }
+  }
+  if (oldPartnerId && oldPartnerId !== partnerId) { const o = guestById(oldPartnerId); if (o) o.plusOneId = null; }
+  g.plusOneId = partnerId;
+  g.plusOneHint = null;
+  saveConvidados();
+  renderConvidados();
+}
+function deleteGuestConv(id) {
+  const g = guestById(id); if (!g) return;
+  if (!confirm(`Remover "${g.fullName}" da lista?`)) return;
+  if (g.plusOneId) { const p = guestById(g.plusOneId); if (p) p.plusOneId = null; }
+  convidados.forEach(o => { if (o.plusOneId === id) o.plusOneId = null; });
+  convidados = convidados.filter(x => x.id !== id);
+  saveConvidados();
+  renderConvidados();
+}
+function exportConvidadosCSV() {
+  const headers = ['Nome completo', 'WhatsApp', 'Par (plus one)', 'Hotel', 'Hospedagem confirmada',
+    'Save the date enviado', 'Convite enviado', 'Pré-wedding', 'Casamento', 'Deu presente', 'Qual presente'];
+  const rows = convidados.map(g => {
+    const partner = g.plusOneId ? guestById(g.plusOneId) : null;
+    return [
+      g.fullName || '', g.whatsapp || '', partner ? partner.fullName : '', g.hotel || '',
+      g.hotelConfirmed ? 'Sim' : 'Não', g.saveTheDate ? 'Sim' : 'Não', g.invitationSent ? 'Sim' : 'Não',
+      g.preWedding ? 'Sim' : 'Não', g.wedding ? 'Sim' : 'Não', g.giftGiven ? 'Sim' : 'Não', g.giftDescription || '',
+    ];
+  });
+  const csv = [headers, ...rows].map(row => row.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `convidados-luana-theo-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function toggleAddPanel(show) {
+  document.getElementById('conv-add-panel').style.display = show ? 'block' : 'none';
+  if (show) {
+    document.getElementById('conv-new-partner').innerHTML = partnerOptionsConv(null, null);
+  }
+}
+function addGuestConv() {
+  const nameEl = document.getElementById('conv-new-name');
+  const name = nameEl.value.trim();
+  if (!name) { nameEl.focus(); return; }
+  const whatsapp = document.getElementById('conv-new-whatsapp').value.trim();
+  const hotel = document.getElementById('conv-new-hotel').value.trim();
+  const partnerId = document.getElementById('conv-new-partner').value || null;
+  const id = 'g' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  convidados.push({
+    id, fullName: name, whatsapp, hotel, hotelConfirmed: false, plusOneId: null,
+    saveTheDate: false, invitationSent: false, preWedding: false, wedding: false,
+    giftGiven: false, giftDescription: '',
+  });
+  saveConvidados();
+  if (partnerId) linkPartner(id, partnerId); else renderConvidados();
+  nameEl.value = '';
+  document.getElementById('conv-new-whatsapp').value = '';
+  document.getElementById('conv-new-hotel').value = '';
+  document.getElementById('conv-add-panel').style.display = 'none';
+}
+function showTab(name) {
+  document.getElementById('tab-rsvp').style.display = name === 'rsvp' ? 'block' : 'none';
+  document.getElementById('tab-convidados').style.display = name === 'convidados' ? 'block' : 'none';
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  if (name === 'convidados') renderConvidados();
+}
+
+let sortCol = 'ts';
+let sortDir = -1;
+
+function login() {
+  const val = document.getElementById('pwd').value;
+  if (val === PWD) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+    loadData();
+    loadConvidados();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+  }
+}
+
+function logout() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('main').style.display = 'none';
+  document.getElementById('pwd').value = '';
+}
+
+function loadData() {
+  // Load from localStorage (submitted from same domain)
+  const local = JSON.parse(localStorage.getItem('rsvps_lt') || '[]');
+  rsvps = local;
+  updateStats();
+  render();
+}
+
+async function loadFromFormspree() {
+  // Note: Formspree submissions API requires paid plan for direct API access
+  // Users should check formspree.io/forms/xlgakjrg/submissions directly
+  // But we reload local data
+  loadData();
+  alert('Dados locais atualizados!\n\nPara ver TODAS as confirmações (de outros dispositivos), acesse:\nhttps://formspree.io/forms/xlgakjrg/submissions');
+}
+
+function updateStats() {
+  const total = rsvps.length;
+  const quinta = rsvps.filter(r => r.events && r.events.includes('Quinta')).length;
+  const sabado = rsvps.filter(r => r.events && r.events.includes('Sábado')).length;
+  const comp = rsvps.filter(r => r.companion && r.companion !== '—').length;
+
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-quinta').textContent = quinta;
+  document.getElementById('stat-sabado').textContent = sabado;
+  document.getElementById('stat-comp').textContent = comp;
+}
+
+function norm(s) {
+  return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function buildWaBtn(r) {
+  if (!r.telefone) return '<span style="opacity:.3;font-size:.8rem;font-family:var(--cg);">sem tel.</span>';
+  // Clean phone number — keep only digits
+  const digits = r.telefone.replace(/\D/g, '');
+  // Add Brazil country code if not present
+  const intl = digits.startsWith('55') ? digits : '55' + digits;
+  const name = encodeURIComponent(r.name);
+  const events = encodeURIComponent(r.events || '');
+  const msg = encodeURIComponent(
+    `Olá, ${r.name}! Recebemos sua confirmação de presença para o casamento de Luana & Theo em 17/04/2027 em Paraty. Obrigada! 💚`
+  );
+  return `<a 
+    href="https://wa.me/${intl}?text=${msg}" 
+    target="_blank"
+    style="
+      display:inline-flex;align-items:center;gap:6px;
+      background:#25D366;color:white;
+      font-family:var(--cg);font-size:.8rem;letter-spacing:.04em;
+      padding:6px 12px;text-decoration:none;
+      border-radius:2px;white-space:nowrap;
+      transition:background .2s;
+    "
+    onmouseover="this.style.background='#1da851'"
+    onmouseout="this.style.background='#25D366'"
+  >
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    WhatsApp
+  </a>`;
+}
+
+function render() {
+  const search = norm(document.getElementById('search').value);
+  const evFilter = document.getElementById('filter-ev').value;
+  const compFilter = document.getElementById('filter-comp').value;
+
+  let data = [...rsvps];
+
+  if (search) {
+    data = data.filter(r =>
+      norm(r.name).includes(search) ||
+      norm(r.companion || '').includes(search)
+    );
+  }
+  if (evFilter) {
+    data = data.filter(r => r.events && r.events.includes(evFilter));
+  }
+  if (compFilter === 'sim') {
+    data = data.filter(r => r.companion && r.companion !== '—');
+  } else if (compFilter === 'nao') {
+    data = data.filter(r => !r.companion || r.companion === '—');
+  }
+
+  // Sort
+  data.sort((a, b) => {
+    const va = (a[sortCol] || '').toString();
+    const vb = (b[sortCol] || '').toString();
+    return va.localeCompare(vb) * sortDir;
+  });
+
+  const tbody = document.getElementById('tbody');
+  const empty = document.getElementById('empty');
+
+  if (!data.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = data.map((r, i) => {
+    const evs = (r.events || '').split(', ').filter(Boolean).map(e => {
+      const isQ = e.includes('Quinta');
+      return `<span class="badge ${isQ ? 'badge-quinta' : 'badge-sabado'}">${isQ ? 'Quinta' : 'Sábado'}</span>`;
+    }).join('');
+
+    const cev = (r.compEvents || '').split(', ').filter(Boolean).map(e => {
+      const isQ = e.includes('Quinta');
+      return `<span class="badge ${isQ ? 'badge-quinta' : 'badge-sabado'}">${isQ ? 'Quinta' : 'Sábado'}</span>`;
+    }).join('') || '<span style="opacity:.35;font-style:italic;">—</span>';
+
+    const date = r.ts ? new Date(r.ts).toLocaleString('pt-BR', {
+      day: '2-digit', month: '2-digit', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    }) : '—';
+
+    const realIdx = rsvps.indexOf(r);
+
+    return `<tr>
+      <td class="td-name">${r.name || '—'}</td>
+      <td class="td-comp">${r.telefone || '—'}</td>
+      <td class="td-comp">${r.companion && r.companion !== '—' ? r.companion : '<span style="opacity:.35;">—</span>'}</td>
+      <td>${evs || '<span style="opacity:.35;font-style:italic;">—</span>'}</td>
+      <td>${cev}</td>
+      <td class="td-date">${date}</td>
+      <td>${buildWaBtn(r)}</td>
+      <td><button class="btn-delete" onclick="deleteEntry(${realIdx})" title="Remover">✕</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function sortBy(col) {
+  if (sortCol === col) { sortDir *= -1; }
+  else { sortCol = col; sortDir = 1; }
+  document.querySelectorAll('.sort-arrow').forEach(el => el.textContent = '↕');
+  document.getElementById('arr-' + col).textContent = sortDir === 1 ? '↑' : '↓';
+  render();
+}
+
+function deleteEntry(idx) {
+  if (!confirm('Remover esta confirmação?')) return;
+  rsvps.splice(idx, 1);
+  localStorage.setItem('rsvps_lt', JSON.stringify(rsvps));
+  updateStats();
+  render();
+}
+
+function clearAll() {
+  if (!confirm('Limpar TODAS as confirmações? Esta ação não pode ser desfeita.')) return;
+  rsvps = [];
+  localStorage.setItem('rsvps_lt', JSON.stringify(rsvps));
+  updateStats();
+  render();
+}
+
+function exportCSV() {
+  const headers = ['Nome', 'WhatsApp', 'Acompanhante', 'Eventos', 'Eventos Acompanhante', 'Confirmado em'];
+  const rows = rsvps.map(r => [
+    r.name || '',
+    r.telefone || '',
+    r.companion || '',
+    r.events || '',
+    r.compEvents || '',
+    r.ts ? new Date(r.ts).toLocaleString('pt-BR') : ''
+  ]);
+
+  const csv = [headers, ...rows]
+    .map(row => row.map(v => `"${String(v).replace(/"/g, '""')}"`).join(','))
+    .join('\n');
+
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `rsvp-luana-theo-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById('pwd').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+</script>
+</body>
+</html>

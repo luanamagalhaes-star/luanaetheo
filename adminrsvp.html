@@ -487,7 +487,9 @@ tbody td {
         <div class="stat-card"><div class="stat-number" id="cv-std">0</div><div class="stat-label">Save the date</div></div>
         <div class="stat-card"><div class="stat-number" id="cv-conv">0</div><div class="stat-label">Convite enviado</div></div>
         <div class="stat-card"><div class="stat-number" id="cv-pre">0</div><div class="stat-label">Pré-wedding</div></div>
-        <div class="stat-card"><div class="stat-number" id="cv-cas">0</div><div class="stat-label">Casamento</div></div>
+        <div class="stat-card"><div class="stat-number" id="cv-cas">0</div><div class="stat-label">Casamento: Vão</div></div>
+        <div class="stat-card"><div class="stat-number" id="cv-cas-nao">0</div><div class="stat-label">Casamento: Não vão</div></div>
+        <div class="stat-card"><div class="stat-number" id="cv-cas-naosabe">0</div><div class="stat-label">Casamento: Não sabem</div></div>
         <div class="stat-card"><div class="stat-number" id="cv-hotel">0</div><div class="stat-label">Hotel confirmado</div></div>
         <div class="stat-card"><div class="stat-number" id="cv-presente">0</div><div class="stat-label">Deram presente</div></div>
       </div>
@@ -5634,6 +5636,8 @@ function updateStatsCards() {
   document.getElementById('cv-conv').textContent = convidados.filter(g => g.invitationSent).length;
   document.getElementById('cv-pre').textContent = convidados.filter(g => g.preWedding === 'sim').length;
   document.getElementById('cv-cas').textContent = convidados.filter(g => g.wedding === 'sim').length;
+  document.getElementById('cv-cas-nao').textContent = convidados.filter(g => g.wedding === 'nao').length;
+  document.getElementById('cv-cas-naosabe').textContent = convidados.filter(g => g.wedding === 'nao_sabe').length;
   document.getElementById('cv-hotel').textContent = convidados.filter(g => g.hotelConfirmed).length;
   document.getElementById('cv-presente').textContent = convidados.filter(g => g.giftGiven).length;
 }

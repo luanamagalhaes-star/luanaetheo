@@ -205,6 +205,11 @@ body{
 /* DICAS vertical list */
 .g1{display:flex;flex-direction:column;gap:32px;margin-bottom:48px;max-width:380px;margin-left:auto;margin-right:auto;}
 
+/* Extra breathing room before/after each Dicas subsection (Restaurantes, Maquiagem e Cabelo, Transporte) */
+#dicas .sub-title{margin-top:1.5cm;}
+#dicas .g-flex,
+#dicas .g1{margin-bottom:calc(48px + 1.5cm);}
+
 /* PRESENTES */
 .gift-btn{
   display:inline-block;

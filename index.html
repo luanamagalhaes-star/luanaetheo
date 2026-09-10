@@ -31,26 +31,25 @@ body{
   background-attachment:fixed;
 }
 
-/* STRIPE — inline within sections, NOT fixed */
-.stripe-section{
+/* STRIPE — one continuous strip behind ALL stripe sections, so there's no seam at section boundaries */
+.stripes-wrap{
   position:relative;
   overflow:hidden;
 }
-.stripe-section::before,
-.stripe-section::after{
+.stripes-wrap::before,
+.stripes-wrap::after{
   content:'';
   position:absolute;
   top:0;bottom:0;
   width:var(--stripe-w);
-  background-image:url('https://luanaetheo.vercel.app/estampa02.png'),url('https://luanaetheo.vercel.app/estampa02.png');
-  background-size:216px auto,216px auto;
-  background-position:0 0,0 1px;
-  background-repeat:repeat-y,repeat-y;
+  background-image:url('https://luanaetheo.vercel.app/estampa02.png');
+  background-size:216px auto;
+  background-repeat:repeat-y;
   pointer-events:none;
   z-index:2;
 }
-.stripe-section::before{left:0;}
-.stripe-section::after{right:0;}
+.stripes-wrap::before{left:0;}
+.stripes-wrap::after{right:0;}
 
 /* HERO */
 #hero{
@@ -380,8 +379,8 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
   .fd{ font-size:.85rem; letter-spacing:.2em; }
 
   /* Stripe thinner on mobile */
-  .stripe-section::before,
-  .stripe-section::after{ width:var(--stripe-w); }
+  .stripes-wrap::before,
+  .stripes-wrap::after{ width:var(--stripe-w); }
 }
 
 /* ── SMALL PHONES ── */
@@ -411,8 +410,10 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
   <div class="hero-pattern"></div>
 </section>
 
+<div class="stripes-wrap">
+
 <!-- WELCOME (stripe section) -->
-<div class="stripe-section welcome">
+<div class="welcome">
   <div style="position:relative;z-index:1;">
     <div class="welcome-title">Queridos familiares e amigos,</div>
     <p class="welcome-text">Estamos muito felizes de dividir com vocês essa data tão especial. Como amamos celebrar e estar perto de quem mais amamos, preparamos um fim de semana de comemorações em Paraty, a cidade mais linda do Brasil para nós.</p>
@@ -423,7 +424,7 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
 <div class="div-line"></div>
 
 <!-- PROGRAMAÇÃO -->
-<section id="evento" class="stripe-section">
+<section id="evento">
   <div class="sec" style="position:relative;z-index:1;">
     <div class="sec-title">Programação</div>
     <div class="prog-outer">
@@ -466,8 +467,8 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
         </div>
       </div>
       <div style="text-align:center;padding-top:16px;margin-bottom:48px;">
-        <div class="prog-traje-center">Não teremos um dress code</div>
-        <div class="prog-traje-sug">vista-se como se sentir mais confortável &nbsp;·&nbsp; <a href="#roupas" style="color:inherit;text-decoration:underline;">veja dicas do que levar</a></div>
+        <div class="prog-traje-center">Traje: Esporte Fino</div>
+        <div class="prog-traje-sug"><a href="#roupas" style="color:inherit;text-decoration:underline;">veja dicas do que levar</a></div>
       </div>
 
     </div>
@@ -476,7 +477,7 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
 
 
 <!-- HOSPEDAGEM (stripe section) -->
-<section id="hospedagem" class="stripe-section">
+<section id="hospedagem">
   <div class="sec" style="position:relative;z-index:1;">
     <div class="sec-title">Hospedagem</div>
     <p style="font-family:var(--cg);font-size:1.2rem;line-height:1.8;color:var(--verde);opacity:.65;margin-bottom:56px;max-width:540px;margin-left:auto;margin-right:auto;">
@@ -521,7 +522,7 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
 
 
 <!-- DICAS (stripe section) -->
-<section id="dicas" class="stripe-section">
+<section id="dicas">
   <div class="sec" style="position:relative;z-index:1;">
     <div class="sec-title">Dicas</div>
 
@@ -563,7 +564,7 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
 
 
 <!-- ROUPAS -->
-<section id="roupas" class="stripe-section">
+<section id="roupas">
   <div class="sec" style="position:relative;z-index:1;">
     <img class="prog-icon" style="margin-bottom:16px;" src="https://luanaetheo.vercel.app/sol.png" alt=""/>
     <div class="sec-title">Roupas</div>
@@ -571,13 +572,10 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
       Paraty é um lugar informal, leve muitas bermudas, camisetas leves, vestidinhos e, principalmente, maiôs, biquínis e bermudas para entrar bastante no mar. Mas, se esqueceu de levar alguma coisa, não se preocupe — Paraty tem um bom comércio onde você encontrará tudo o que precisa.
     </p>
     <p style="font-family:var(--cg);font-size:1.2rem;line-height:1.8;color:var(--verde);opacity:.65;margin:0 auto 28px;max-width:560px;">
-      Para homens, é dispensável a gravata, o blazer e o sapato social.
-    </p>
-    <p style="font-family:var(--cg);font-size:1.2rem;line-height:1.8;color:var(--verde);opacity:.65;margin:0 auto 28px;max-width:560px;">
-      Para mulheres, recomendamos o uso de rasteiras ou saltos no estilo anabela/flatform — o piso de pedras irregulares não contribui para saltos altos.
+      Para homens, é dispensável a gravata e o blazer. O sapato social pode ser substituído por um mocassim ou papete.
     </p>
     <p style="font-family:var(--cg);font-size:1.2rem;line-height:1.8;color:var(--verde);opacity:.65;max-width:560px;margin:0 auto;">
-      Não teremos um dress code — queremos que se vista como se sentir mais confortável.
+      Para mulheres, recomendamos o uso de rasteiras. Se fizer questão de salto, o estilo anabela/flatform é o ideal — o piso de pedras irregulares não contribui para saltos altos.
     </p>
   </div>
 </section>
@@ -585,7 +583,7 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
 <div class="div-line"></div>
 
 <!-- PRESENTES -->
-<section id="presentes" class="stripe-section">
+<section id="presentes">
   <div class="sec" style="position:relative;z-index:1;">
     <img class="mono-div" style="width:80px;margin-bottom:24px;" src="https://i.ibb.co/m5H0jvcv/monograma-luana-e-theo.png" onerror="this.style.display='none'"/>
     <div class="sec-title">Lista de Presentes</div>
@@ -605,7 +603,7 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
 <div class="div-line"></div>
 
 <!-- RSVP (stripe section) -->
-<section id="rsvp" class="stripe-section">
+<section id="rsvp">
   <div class="sec" style="position:relative;z-index:1;">
     <div class="sec-title">RSVP</div>
     <div class="rsvp-deadline">Confirme sua presença até 20 de fevereiro de 2027</div>
@@ -656,6 +654,8 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
     </div>
   </div>
 </section>
+
+</div><!-- /stripes-wrap -->
 
 <footer>
   <div class="fn">Luana e Theo</div>

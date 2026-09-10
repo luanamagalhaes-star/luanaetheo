@@ -5612,7 +5612,7 @@ function partnerOptionsConv(currentId, selectedId) {
 }
 function rowHtmlConv(g) {
   const hintTxt = (!g.plusOneId && g.plusOneHint) ? ` <span style="opacity:.4;font-size:.68rem;">(sug: ${escapeHtmlC(g.plusOneHint)})</span>` : '';
-  return `<tr>
+  return `<tr data-gid="${g.id}">
     <td><input class="mini-input" style="font-weight:500;min-width:150px;" value="${escapeHtmlC(g.fullName)}" onchange="updateGuestField('${g.id}','fullName',this.value)"/></td>
     <td><input class="mini-input" style="min-width:130px;" placeholder="DDD+número" value="${escapeHtmlC(g.whatsapp)}" onchange="updateGuestField('${g.id}','whatsapp',this.value)"/></td>
     <td><select class="mini-select" style="min-width:150px;" onchange="linkPartner('${g.id}', this.value)">${partnerOptionsConv(g.id, g.plusOneId)}</select>${hintTxt}</td>
@@ -5627,6 +5627,31 @@ function rowHtmlConv(g) {
     <td>${buildGuestWaBtn(g)}</td>
     <td><button class="btn-delete" onclick="deleteGuestConv('${g.id}')" title="Remover">✕</button></td>
   </tr>`;
+}
+function updateStatsCards() {
+  document.getElementById('cv-total').textContent = convidados.length;
+  document.getElementById('cv-std').textContent = convidados.filter(g => g.saveTheDate).length;
+  document.getElementById('cv-conv').textContent = convidados.filter(g => g.invitationSent).length;
+  document.getElementById('cv-pre').textContent = convidados.filter(g => g.preWedding === 'sim').length;
+  document.getElementById('cv-cas').textContent = convidados.filter(g => g.wedding === 'sim').length;
+  document.getElementById('cv-hotel').textContent = convidados.filter(g => g.hotelConfirmed).length;
+  document.getElementById('cv-presente').textContent = convidados.filter(g => g.giftGiven).length;
+}
+// Atualiza só a linha desse convidado (em vez de redesenhar a tabela toda, o que
+// ficava lento com 300+ convidados a cada clique). Só é seguro quando não há filtro
+// de coluna ativo (senão o clique poderia precisar esconder/mostrar linhas).
+function patchRowOrRerender(id) {
+  const filterVal = document.getElementById('conv-filter').value;
+  const tr = document.querySelector(`tr[data-gid="${id}"]`);
+  if (!filterVal && tr) {
+    const g = guestById(id);
+    if (g) {
+      tr.outerHTML = rowHtmlConv(g);
+      updateStatsCards();
+      return;
+    }
+  }
+  renderConvidados();
 }
 function renderConvidados() {
   const term = norm(document.getElementById('conv-search').value);
@@ -5653,13 +5678,7 @@ function renderConvidados() {
   };
   if (filterVal && preds[filterVal]) data = data.filter(preds[filterVal]);
 
-  document.getElementById('cv-total').textContent = convidados.length;
-  document.getElementById('cv-std').textContent = convidados.filter(g => g.saveTheDate).length;
-  document.getElementById('cv-conv').textContent = convidados.filter(g => g.invitationSent).length;
-  document.getElementById('cv-pre').textContent = convidados.filter(g => g.preWedding === 'sim').length;
-  document.getElementById('cv-cas').textContent = convidados.filter(g => g.wedding === 'sim').length;
-  document.getElementById('cv-hotel').textContent = convidados.filter(g => g.hotelConfirmed).length;
-  document.getElementById('cv-presente').textContent = convidados.filter(g => g.giftGiven).length;
+  updateStatsCards();
 
   const sorted = [...data].sort((a, b) => (a.fullName || '').localeCompare(b.fullName || '', 'pt-BR'));
   const seen = new Set();
@@ -5687,13 +5706,13 @@ function toggleGuestField(id, field) {
   const g = guestById(id); if (!g) return;
   g[field] = !g[field];
   saveConvidados();
-  renderConvidados();
+  patchRowOrRerender(id);
 }
 function updateGuestField(id, field, value) {
   const g = guestById(id); if (!g) return;
   g[field] = value;
   saveConvidados();
-  renderConvidados();
+  patchRowOrRerender(id);
 }
 function linkPartner(id, partnerId) {
   const g = guestById(id); if (!g) return;

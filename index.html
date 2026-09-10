@@ -42,9 +42,10 @@ body{
   position:absolute;
   top:0;bottom:0;
   width:var(--stripe-w);
-  background-image:url('https://luanaetheo.vercel.app/estampa02.png');
-  background-size:216px auto;
-  background-repeat:repeat-y;
+  background-image:url('https://luanaetheo.vercel.app/estampa02.png'),url('https://luanaetheo.vercel.app/estampa02.png');
+  background-size:216px auto,216px auto;
+  background-position:0 0,0 1px;
+  background-repeat:repeat-y,repeat-y;
   pointer-events:none;
   z-index:2;
 }
@@ -88,10 +89,10 @@ body{
   width:100%;
   flex:1;
   min-height:0;
-  background-image:url('https://luanaetheo.vercel.app/estampa01.png');
-  background-size:820px auto;
-  background-repeat:repeat;
-  background-position:top center;
+  background-image:url('https://luanaetheo.vercel.app/estampa01.png'),url('https://luanaetheo.vercel.app/estampa01.png');
+  background-size:820px auto,820px auto;
+  background-repeat:repeat,repeat;
+  background-position:top center,calc(50% + 1px) 1px;
   flex-shrink:0;
 }
 

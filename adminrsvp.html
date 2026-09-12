@@ -5487,11 +5487,34 @@ function loadConvidados() {
     convidados = JSON.parse(JSON.stringify(DEFAULT_GUESTS));
     saveConvidados();
   }
+  syncPairedStatuses();
   renderConvidados();
 }
 function saveConvidados() {
   localStorage.setItem('convidados_lt', JSON.stringify(convidados));
   localStorage.setItem('convidados_seed_version', SEED_VERSION);
+}
+// Corrige pares já dessincronizados (ex: marcações feitas antes dessa correção existir,
+// ou casos em que só um dos dois foi marcado manualmente). Roda toda vez que o painel
+// carrega: se um dos dois tem um status definido ("sim"/"nao"/"nao_sabe") e o outro
+// ainda está em "não respondeu", copia o status definido pro outro. Se os dois já têm
+// um status definido mas diferente entre si, não mexe (conflito real, precisa olhar).
+function syncPairedStatuses() {
+  let changed = false;
+  convidados.forEach(g => {
+    if (!g.plusOneId) return;
+    const p = guestById(g.plusOneId);
+    if (!p) return;
+    ['wedding', 'preWedding'].forEach(field => {
+      const gv = g[field] || 'nao_respondeu';
+      const pv = p[field] || 'nao_respondeu';
+      if (gv === pv) return;
+      if (gv === 'nao_respondeu' && pv !== 'nao_respondeu') { g[field] = pv; changed = true; }
+      else if (pv === 'nao_respondeu' && gv !== 'nao_respondeu') { p[field] = gv; changed = true; }
+    });
+  });
+  if (changed) saveConvidados();
+  return changed;
 }
 // Campos que a Luana edita ao vivo no painel (marcações, telefone, hotel etc.) —
 // numa atualização, o valor JÁ SALVO NO NAVEGADOR dela sempre vence, pra nunca apagar

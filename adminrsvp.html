@@ -5715,8 +5715,16 @@ function toggleGuestField(id, field) {
 function updateGuestField(id, field, value) {
   const g = guestById(id); if (!g) return;
   g[field] = value;
+  // Confirmação de pré-wedding/casamento é do casal: espelha no acompanhante vinculado,
+  // pra contar as duas pessoas nos cards de estatística (senão só quem respondeu no site
+  // era marcado, e o acompanhante ficava contando como "não respondeu").
+  let partnerTouched = false;
+  if ((field === 'wedding' || field === 'preWedding') && g.plusOneId) {
+    const p = guestById(g.plusOneId);
+    if (p) { p[field] = value; partnerTouched = true; }
+  }
   saveConvidados();
-  patchRowOrRerender(id);
+  if (partnerTouched) { renderConvidados(); } else { patchRowOrRerender(id); }
 }
 function linkPartner(id, partnerId) {
   const g = guestById(id); if (!g) return;

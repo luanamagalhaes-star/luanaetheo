@@ -298,6 +298,12 @@ body{
   border:1px solid rgba(58,61,44,.3);
   width:auto;padding:18px 24px;
 }
+.rback{
+  display:inline-block;background:none;border:none;cursor:pointer;
+  font-family:var(--cg);font-size:.95rem;color:var(--verde-lt);
+  opacity:.75;padding:0;margin-bottom:18px;text-decoration:underline;
+}
+.rback:hover{opacity:1;}
 .rstep{display:none;}
 .rstep.active{display:block;}
 .rsel{font-family:var(--push);font-size:2rem;color:var(--marinho);margin-bottom:20px;}
@@ -632,6 +638,7 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
       </div>
 
       <div class="rstep" id="s2">
+        <button type="button" class="rback" onclick="show('s1')">‹ Voltar</button>
         <div class="rsel" id="s2n"></div>
         <div id="ca"></div>
         <div style="display:flex;gap:12px;margin-top:20px;">
@@ -641,6 +648,7 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
       </div>
 
       <div class="rstep" id="s3">
+        <button type="button" class="rback" onclick="show('s2')">‹ Voltar</button>
         <div class="rsel" id="s3n"></div>
         <div class="rfield">
           <label class="rlbl">Em quais eventos você participará?</label>
@@ -650,6 +658,10 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
           </div>
         </div>
         <div id="cea"></div>
+        <div class="rfield" style="margin-top:24px;">
+          <label class="rlbl">Em qual hotel/pousada você vai se hospedar? (opcional)</label>
+          <input class="rinput" id="rhotel" type="text" placeholder="Nome do hotel ou pousada" autocomplete="off"/>
+        </div>
         <div class="rfield" style="margin-top:24px;">
           <label class="rlbl">WhatsApp com DDD *</label>
           <input class="rinput" id="rtel" type="tel" placeholder="(XX) XXXXX-XXXX" autocomplete="tel"/>
@@ -1069,14 +1081,15 @@ async function subf(){
   if(document.getElementById('es').checked) evs.push('Sábado 17/04 — Casamento');
   const cev=[];const ceq=document.getElementById('ceq'),ces=document.getElementById('ces');
   if(ceq&&ceq.checked) cev.push('Quinta');if(ces&&ces.checked) cev.push('Sábado');
-  const entry={name:guest.name,companion:comp||'—',events:evs.join(', ')||'—',compEvents:cev.join(', ')||'—',telefone:tel,ts:new Date().toISOString()};
+  const hotel=document.getElementById('rhotel').value.trim();
+  const entry={name:guest.name,companion:comp||'—',events:evs.join(', ')||'—',compEvents:cev.join(', ')||'—',hotel:hotel||'—',telefone:tel,ts:new Date().toISOString()};
   const all=JSON.parse(localStorage.getItem('rsvps_lt')||'[]');
   all.push(entry);localStorage.setItem('rsvps_lt',JSON.stringify(all));
   try{
     await fetch('https://formspree.io/f/xlgakjrg',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({_subject:'✉️ RSVP: '+entry.name,nome:entry.name,telefone:entry.telefone,acompanhante:entry.companion,eventos:entry.events,eventos_acompanhante:entry.compEvents,data:new Date().toLocaleString('pt-BR')})
+      body:JSON.stringify({_subject:'✉️ RSVP: '+entry.name,nome:entry.name,telefone:entry.telefone,acompanhante:entry.companion,eventos:entry.events,eventos_acompanhante:entry.compEvents,hotel:entry.hotel,data:new Date().toLocaleString('pt-BR')})
     });
   }catch(e){console.error(e);}
   document.getElementById('s3').classList.remove('active');

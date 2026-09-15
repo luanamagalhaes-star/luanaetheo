@@ -319,9 +319,6 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
 .fn{font-family:var(--push);font-size:4rem;color:rgba(243,239,231,.88);margin-bottom:14px;}
 .fd{font-family:var(--cg);font-size:.95rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(243,239,231,.38);}
 
-
-}
-
 /* ── TABLET ── */
 @media(max-width:900px){
   :root{ --stripe-w:70px; }
@@ -638,17 +635,16 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
       </div>
 
       <div class="rstep" id="s2">
-        <button type="button" class="rback" onclick="show('s1')">‹ Voltar</button>
         <div class="rsel" id="s2n"></div>
         <div id="ca"></div>
-        <div style="display:flex;gap:12px;margin-top:20px;">
+        <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;">
+          <button class="rbtn rbtn-skip" onclick="show('s1')">‹ Voltar</button>
           <button class="rbtn rbtn-skip" onclick="s3f()">Pular</button>
           <button class="rbtn" style="flex:1;" onclick="s3f()">Continuar</button>
         </div>
       </div>
 
       <div class="rstep" id="s3">
-        <button type="button" class="rback" onclick="show('s2')">‹ Voltar</button>
         <div class="rsel" id="s3n"></div>
         <div class="rfield">
           <label class="rlbl">Em quais eventos você participará?</label>
@@ -667,7 +663,10 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
           <input class="rinput" id="rtel" type="tel" placeholder="(XX) XXXXX-XXXX" autocomplete="tel"/>
           <div class="rerr" id="re-tel">Por favor, informe seu WhatsApp com DDD.</div>
         </div>
-        <button class="rbtn" onclick="subf()">Confirmar Presença</button>
+        <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;">
+          <button type="button" class="rbtn rbtn-skip" onclick="show('s2')">‹ Voltar</button>
+          <button class="rbtn" style="flex:1;" onclick="subf()">Confirmar Presença</button>
+        </div>
       </div>
 
       <div class="rok" id="ok">
@@ -1018,7 +1017,7 @@ const G=[
   {name:'esposa varella',companions:['Gabriel Varella']},
   {name:'esposa xavier',companions:['Rodrigo Xavier']},
 ];
-function nm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();}
+function nm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();}
 let guest=null,comp=null;
 const ri=document.getElementById('ri'),rs=document.getElementById('rs');
 ri.addEventListener('input',()=>{

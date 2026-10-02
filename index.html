@@ -165,13 +165,15 @@ body{
 .prog-outer{max-width:860px;margin:0 auto;}
 .prog-single{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;margin-bottom:64px;}
 .prog-icon{height:120px;width:auto;object-fit:contain;margin-bottom:8px;mix-blend-mode:multiply;}
+.prog-icon.icon-sm{height:90px;}
+.prog-icon.icon-lg{height:150px;}
 .prog-day{font-family:var(--push);font-size:2.6rem;color:var(--marinho);line-height:1;}
 .prog-dt{font-family:var(--cg);font-size:1.22rem;letter-spacing:.12em;color:var(--verde);opacity:.8;}
 .prog-ev{font-family:var(--cg);font-weight:500;font-size:1.32rem;letter-spacing:.18em;text-transform:uppercase;color:var(--verde);margin-top:4px;}
 .prog-det{font-family:var(--cg);font-size:1.2rem;color:var(--verde);opacity:.65;line-height:1.8;}
 .body-p{font-family:var(--cg);font-size:1.2rem;color:var(--verde);opacity:.65;line-height:1.8;}
 .prog-row{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-bottom:32px;}
-.prog-sab-header{font-family:var(--push);font-size:2.2rem;color:var(--marinho);margin-bottom:8px;}
+.prog-sab-header{font-family:var(--push);font-size:2.6rem;color:var(--marinho);margin-bottom:8px;}
 .prog-sab-date{font-family:var(--cg);font-size:1.22rem;letter-spacing:.12em;color:var(--verde);opacity:.8;margin-bottom:40px;}
 .prog-traje-center{font-family:var(--cg);font-size:1.2rem;color:var(--verde);opacity:.65;line-height:1.8;margin-bottom:6px;}
 .prog-traje-sug{font-family:var(--cg);font-size:1.2rem;color:var(--verde);opacity:.65;line-height:1.8;}
@@ -362,6 +364,8 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
   .prog-outer{ padding:0 4px; }
   .prog-row{ grid-template-columns:1fr; gap:40px; }
   .prog-icon{ height:80px; }
+  .prog-icon.icon-sm{ height:60px; }
+  .prog-icon.icon-lg{ height:100px; }
   .prog-day{ font-size:2rem; }
   .prog-sab-header{ font-size:2rem; }
   .prog-ev{ font-size:1.1rem; }
@@ -427,7 +431,7 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
 <div class="welcome">
   <div style="position:relative;z-index:1;">
     <div class="welcome-title">Queridos familiares e amigos,</div>
-    <p class="welcome-text">Estamos muito felizes de dividir com vocês essa data tão especial. Como amamos celebrar e estar perto de quem mais amamos, preparamos um fim de semana de comemorações em Paraty, a cidade mais linda do Brasil para nós.</p>
+    <p class="welcome-text">Estamos muito felizes de compartilhar com vocês essa data tão especial. Como amamos celebrar, preparamos um fim de semana de comemorações em Paraty, a cidade mais linda do Brasil para nós.</p>
     <div style="font-family:var(--push);font-size:1.8rem;color:var(--marinho);margin-top:32px;">com amor, Luana e Theo</div>
   </div>
 </div>
@@ -452,7 +456,7 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
 
       <!-- SEXTA -->
       <div class="prog-single">
-        <img class="prog-icon" src="https://luanaetheo.vercel.app/igreja.png" alt="Igreja"/>
+        <img class="prog-icon icon-sm" src="https://luanaetheo.vercel.app/igreja.png" alt="Igreja"/>
         <div class="prog-day">Sexta Feira</div>
         <div class="prog-dt">16.04.2027 &nbsp;|&nbsp; 11:00 horas pontualmente</div>
         <div class="prog-ev">Casamento Religioso</div>
@@ -464,13 +468,13 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
       <div class="prog-sab-date">17.04.2027</div>
       <div class="prog-row">
         <div class="prog-single" style="margin-bottom:0;">
-          <img class="prog-icon" src="https://luanaetheo.vercel.app/cerimonia.png" alt="Cerimônia"/>
+          <img class="prog-icon icon-lg" src="https://luanaetheo.vercel.app/cerimonia.png" alt="Cerimônia"/>
           <div class="prog-ev" style="margin-top:8px;">Cerimônia</div>
           <div class="prog-dt">14:00 horas</div>
           <div class="prog-det">Entre a Igreja de Santa Rita e a Antiga Prisão<br/>Centro Histórico</div>
         </div>
         <div class="prog-single" style="margin-bottom:0;">
-          <img class="prog-icon" src="https://luanaetheo.vercel.app/coqueiro.png" alt="Recepção"/>
+          <img class="prog-icon icon-lg" src="https://luanaetheo.vercel.app/coqueiro.png" alt="Recepção"/>
           <div class="prog-ev" style="margin-top:8px;">Recepção</div>
           <div class="prog-dt">17:00 horas</div>
           <div class="prog-det">Após a cerimônia, seguiremos a pé até o Cais de Turismo, onde embarcaremos para a Ilha da Bexiga</div>
@@ -561,14 +565,12 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
       <div class="item"><div class="iname">Adriana Bossens</div><a class="ilink" href="http://wa.me/5521981413706" target="_blank">Contato</a></div>
     </div>
 
-    <div class="sub-title">Transporte</div>
-    <p class="body-p" style="margin:16px auto 32px;max-width:480px;">Para quem se hospedar no Centro Histórico, ir e voltar de todas as comemorações pode ser completamente a pé.</p>
+    <div class="sub-title">Como chegar</div>
+    <p class="body-p" style="margin:16px auto 32px;max-width:480px;">Paraty é acessível de carro a partir das principais capitais do Sudeste. As distâncias e tempos podem variar conforme a rota e o trânsito.</p>
     <div class="g1">
-      <div class="item"><div class="iname">Taxi & Turismo Luis</div><a class="ilink" href="http://wa.me/5524992265018" target="_blank">Contato</a></div>
-      <div class="item"><div class="iname">Coopertaxi</div><a class="ilink" href="http://wa.me/5524974013902" target="_blank">Contato</a></div>
-      <div class="item"><div class="iname">Matheus</div><a class="ilink" href="http://wa.me/5524999724927" target="_blank">Contato</a></div>
-      <div class="item"><div class="iname">Gilson Junior</div><a class="ilink" href="http://wa.me/5524999740152" target="_blank">Contato</a></div>
-      <div class="item"><div class="iname">Taxi do Cazinho</div><a class="ilink" href="http://wa.me/5524998284842" target="_blank">Contato</a></div>
+      <div class="item"><div class="iname">Belo Horizonte → Paraty</div><div class="isub" style="margin-bottom:0;">aprox. 610 km | 9h–10h</div></div>
+      <div class="item"><div class="iname">São Paulo → Paraty</div><div class="isub" style="margin-bottom:0;">aprox. 270 km | 4h</div></div>
+      <div class="item"><div class="iname">Rio de Janeiro → Paraty</div><div class="isub" style="margin-bottom:0;">aprox. 250 km | 3h30–4h</div></div>
     </div>
   </div>
 </section>
@@ -577,7 +579,7 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
 <!-- ROUPAS -->
 <section id="roupas">
   <div class="sec" style="position:relative;z-index:1;">
-    <img class="prog-icon" style="margin-bottom:16px;" src="https://luanaetheo.vercel.app/sol.png" alt=""/>
+    <img class="prog-icon icon-lg" style="margin-bottom:16px;" src="https://luanaetheo.vercel.app/sol.png" alt=""/>
     <div class="sec-title">Roupas</div>
     <p class="body-p" style="margin:16px auto 28px;max-width:560px;">
       Paraty é um lugar informal, leve muitas bermudas, camisetas leves, vestidinhos e, principalmente, roupa de banho para entrar bastante no mar. Mas, se esqueceu de levar alguma coisa, não se preocupe — Paraty tem um bom comércio onde você encontrará tudo o que precisa.

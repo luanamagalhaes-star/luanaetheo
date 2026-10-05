@@ -663,8 +663,9 @@ footer{background:var(--verde);text-align:center;padding:64px 40px;}
         </div>
         <div id="cea"></div>
         <div class="rfield" style="margin-top:24px;">
-          <label class="rlbl">Em qual hotel/pousada você vai se hospedar? (opcional)</label>
+          <label class="rlbl">Em qual hotel/pousada você vai se hospedar? *</label>
           <input class="rinput" id="rhotel" type="text" placeholder="Nome do hotel ou pousada" autocomplete="off"/>
+          <div class="rerr" id="re-hotel">Por favor, informe onde você vai se hospedar.</div>
         </div>
         <div class="rfield" style="margin-top:24px;">
           <label class="rlbl">WhatsApp com DDD *</label>
@@ -1077,6 +1078,13 @@ function s3f(){
   show('s3');
 }
 async function subf(){
+  const hotel0 = document.getElementById('rhotel').value.trim();
+  if(!hotel0){
+    document.getElementById('re-hotel').style.display='block';
+    document.getElementById('rhotel').focus();
+    return;
+  }
+  document.getElementById('re-hotel').style.display='none';
   const tel = document.getElementById('rtel').value.trim();
   if(!tel || tel.replace(/\D/g,'').length < 10){
     document.getElementById('re-tel').style.display='block';
